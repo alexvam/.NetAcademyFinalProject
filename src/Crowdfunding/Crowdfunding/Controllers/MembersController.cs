@@ -64,6 +64,31 @@ namespace Crowdfunding.Controllers
             return View(member);
         }
 
+        // GET: Members/Login
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        // POST: Members/Login
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login([Bind("EmailAddress,Password")] Member member)
+        {
+            var usr = _context.Member.Where(u => u.EmailAddress == member.EmailAddress && u.Password == member.Password).FirstOrDefault();
+
+            if (ModelState.IsValid && usr != null)
+            {
+                return RedirectToAction(nameof(Index));
+            }
+
+            else
+            {
+                ViewBag.Message = "Invalid username or password.";
+                return View();
+            }
+        }
+
         // GET: Members/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
