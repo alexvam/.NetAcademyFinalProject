@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Crowdfunding.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -31,6 +33,12 @@ namespace Crowdfunding
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            var connection = @"Server=DESKTOP-9T1C7LJ\SQLEXPRESS;Database=Crowdfunding4;Trusted_Connection=True;ConnectRetryCount=0";
+
+
+            services.AddDbContext<Crowdfunding4Context>(
+                options => options.UseSqlServer(connection));
+
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
@@ -52,12 +60,7 @@ namespace Crowdfunding
             app.UseStaticFiles();
             app.UseCookiePolicy();
 
-            app.UseMvc(routes =>
-            {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
-            });
+            app.UseMvc().UseMvcWithDefaultRoute();
         }
     }
 }
