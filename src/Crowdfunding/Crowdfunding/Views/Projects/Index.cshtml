@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Crowdfunding.Models.Project>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Target)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectDescription)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StartDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.EndDate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectLocation)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Member)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ProjectCategory)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.StatusNavigation)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Target)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectLocation)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Member.ConfirmPassword)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProjectCategory.CategoryDescription)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StatusNavigation.StatusCategory)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ProjectId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ProjectId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ProjectId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
