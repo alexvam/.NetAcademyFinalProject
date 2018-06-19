@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Crowdfunding.Models;
+using System.Security.Claims;
 
 namespace Crowdfunding.Controllers
 {
@@ -49,7 +50,7 @@ namespace Crowdfunding.Controllers
         // GET: Projects/Create
         public IActionResult Create()
         {
-            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "MemberId");
+            ViewData["MemberId"] = this.GetMemberId();
             ViewData["ProjectCategoryId"] = new SelectList(_context.ProjectCategory, "CategoryId", "CategoryDescription");
             ViewData["Status"] = new SelectList(_context.ProjectStatus, "StatusId", "StatusCategory");
             return View();
@@ -68,7 +69,6 @@ namespace Crowdfunding.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "MemberId", project.MemberId);
             ViewData["ProjectCategoryId"] = new SelectList(_context.ProjectCategory, "CategoryId", "CategoryDescription", project.ProjectCategoryId);
             ViewData["Status"] = new SelectList(_context.ProjectStatus, "StatusId", "StatusCategory", project.Status);
             return View(project);
@@ -163,9 +163,18 @@ namespace Crowdfunding.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        public long GetMemberId()
+        {
+            var memberEmail = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+            return _context.Member.FromSql("SELECT * from dbo.Member").Where(m => m.EmailAddress == memberEmail).FirstOrDefault().MemberId;
+
+        }
+
         private bool ProjectExists(long id)
         {
             return _context.Project.Any(e => e.ProjectId == id);
         }
+
     }
 }
