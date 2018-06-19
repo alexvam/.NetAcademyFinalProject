@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Crowdfunding.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Crowdfunding.Controllers
 {
@@ -19,6 +23,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Members
+        [Authorize]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Member.ToListAsync());
@@ -65,20 +70,36 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Members/Login
-        public IActionResult Login()
+        public IActionResult Login(string returnUrl = null)
         {
+            TempData["returnUrl"] = returnUrl;
             return View();
         }
 
         // POST: Members/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login([Bind("EmailAddress,Password")] Member member)
+        public async Task<IActionResult> Login([Bind("EmailAddress,Password")] Member member, string returnUrl = null)
         {
             var usr = _context.Member.Where(u => u.EmailAddress == member.EmailAddress && u.Password == member.Password).FirstOrDefault();
 
+
             if (ModelState.IsValid && usr != null)
             {
+                var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                identity.AddClaim(new Claim(ClaimTypes.Name, usr.EmailAddress));
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(identity));
+
+                if (returnUrl == null)
+                {
+                    returnUrl = TempData["returnUrl"]?.ToString();
+                }
+
+                if (returnUrl != null)
+                {
+                    return Redirect(returnUrl);
+                }
+
                 return RedirectToAction(nameof(Index));
             }
 
@@ -87,6 +108,12 @@ namespace Crowdfunding.Controllers
                 ViewBag.Message = "Invalid username or password.";
                 return View();
             }
+        }
+
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction(nameof(HomeController.Index), "Home");
         }
 
         // GET: Members/Edit/5
