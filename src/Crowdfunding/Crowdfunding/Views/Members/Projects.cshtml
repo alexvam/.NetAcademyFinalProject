@@ -1,0 +1,19 @@
+﻿@model List<Crowdfunding.Models.Project>
+
+@{
+    ViewData["Title"] = "Projects";
+}
+
+<h1>Created Projects</h1>
+
+<table>
+    <tbody>
+        @foreach (var project in Model)
+        {
+            <tr>
+                @project.ProjectName
+            </tr>
+
+        }
+    </tbody>
+</table>

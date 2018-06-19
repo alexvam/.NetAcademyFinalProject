@@ -29,6 +29,19 @@ namespace Crowdfunding.Controllers
             return View(await _context.Member.ToListAsync());
         }
 
+        // GET: Projects
+        public async Task<ActionResult> Projects()
+        { 
+            var memberEmail = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+            var memberId = _context.Member.FromSql("SELECT * from dbo.Member").Where(m => m.EmailAddress == memberEmail).FirstOrDefault().MemberId;
+            
+            var memberProjects = await _context.Project.FromSql("SELECT * from dbo.Project").Where(u => u.MemberId == memberId).ToListAsync();            
+
+            return View(memberProjects);
+
+        }
+
         // GET: Members/Details/5
         public async Task<IActionResult> Details(long? id)
         {
