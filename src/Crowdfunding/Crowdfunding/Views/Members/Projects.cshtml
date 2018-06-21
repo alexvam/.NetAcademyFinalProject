@@ -4,16 +4,29 @@
     ViewData["Title"] = "Projects";
 }
 
-<h1>Created Projects</h1>
+<h3 class="display-4 text-center"> Projects Created </h3>
 
-<table>
-    <tbody>
-        @foreach (var project in Model)
+
+
+<div class="container container mt-4 mb-5">
+
+    <hr class="bg-dark mb-4 w-25">
+    <div class="row">
+
+        @foreach (var item in Model)
         {
-            <tr>
-                @project.ProjectName
-            </tr>
-
+            <div class="col-md-4">
+                <div class="card">
+                    <img class="card-img-top" src="https://dummyimage.com/350x250/c7c7c7/000.png" alt="Card image cap">
+                    <div class="card-block p-3">
+                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.ProjectName)</h4>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>
+                        <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+
+    </div>
+
+</div>
