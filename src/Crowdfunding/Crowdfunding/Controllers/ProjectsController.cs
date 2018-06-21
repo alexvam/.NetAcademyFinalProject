@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Crowdfunding.Models;
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Crowdfunding.Controllers
 {
@@ -48,6 +49,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize]
         public IActionResult Create()
         {
             ViewData["MemberId"] = this.GetMemberId();

@@ -113,7 +113,7 @@ namespace Crowdfunding.Controllers
                     return Redirect(returnUrl);
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Projects));
             }
 
             else

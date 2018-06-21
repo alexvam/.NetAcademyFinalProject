@@ -37,13 +37,16 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
+                    <li><a asp-area="" asp-controller="Projects" asp-action="Create">Start a Project</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li><a asp-area="">@User.Identity.Name</a></li>
                         <li><a asp-area="" asp-controller="Members" asp-action="Logout">Logout</a></li>
                     }
                     else
                     {
-                        <li><a asp-area="" asp-controller="Members" asp-action="Login">Login</a></li>                        
+                        <li><a asp-area="" asp-controller="Members" asp-action="Create">Register</a></li>
+                        <li><a asp-area="" asp-controller="Members" asp-action="Login">Login</a></li>
                     }
                 </ul>
             </div>
