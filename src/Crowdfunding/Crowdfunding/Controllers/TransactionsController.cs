@@ -47,11 +47,11 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Transactions/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
-            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "ConfirmPassword");
+            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "MemberId");
             ViewData["PackagesId"] = new SelectList(_context.Package, "PackagesId", "PackagesId");
-            ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName");
+            ViewData["ProjectId"] = id;
             return View();
         }
 
@@ -68,9 +68,9 @@ namespace Crowdfunding.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "ConfirmPassword", transaction.MemberId);
+            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "MemberId", transaction.MemberId);
             ViewData["PackagesId"] = new SelectList(_context.Package, "PackagesId", "PackagesId", transaction.PackagesId);
-            ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName", transaction.ProjectId);
+            //ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName", transaction.ProjectId);
             return View(transaction);
         }
 
