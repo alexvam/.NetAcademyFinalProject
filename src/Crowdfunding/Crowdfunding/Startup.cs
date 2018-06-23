@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Crowdfunding.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
 //using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -27,16 +28,16 @@ namespace Crowdfunding
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = new PathString("/members/login"));
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options => options.LoginPath = new PathString("/members/login"));
 
-            services.Configure<CookiePolicyOptions>(options =>
+            /*services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
-            }); */
+            });*/
 
-            var connection = @"Server=DESKTOP-QVR4GU3\SQLEXPRESS;Database=CrowdfundingDB;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=DESKTOP-9T1C7LJ\SQLEXPRESS;Database=Crowdfunding4;Trusted_Connection=True;ConnectRetryCount=0";
 
 
             services.AddDbContext<Crowdfunding4Context>(
@@ -61,7 +62,7 @@ namespace Crowdfunding
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            // app.UseCookiePolicy();
+            app.UseCookiePolicy();
             app.UseAuthentication();
 
             app.UseMvc().UseMvcWithDefaultRoute();
