@@ -1,0 +1,46 @@
+﻿body {
+    padding-top: 20px;
+}
+
+#myCarousel .nav a small {
+    display: block;
+}
+
+#myCarousel .nav {
+    background: #eee;
+}
+
+    #myCarousel .nav a {
+        border-radius: 0px;
+    }
+
+.nav-justified > li {
+    width: 24% !important;
+}
+
+.contimg {
+    width: 1200px;
+    height: 400px;
+}
+
+.filter-button {
+    font-size: 18px;
+    border: 1px solid #42B32F;
+    border-radius: 5px;
+    text-align: center;
+    color: #42B32F;
+    margin-bottom: 30px;
+}
+
+    .filter-button:hover {
+        font-size: 18px;
+        border: 1px solid #42B32F;
+        border-radius: 5px;
+        text-align: center;
+        color: #ffffff;
+        background-color: #42B32F;
+    }
+.btn-default:active .filter-button:active {
+    background-color: #42B32F;
+    color: white;
+}
