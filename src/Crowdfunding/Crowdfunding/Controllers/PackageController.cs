@@ -9,11 +9,11 @@ using Crowdfunding.Models;
 
 namespace Crowdfunding.Controllers
 {
-    public class PackagesController : Controller
+    public class PackageController : Controller
     {
         private readonly Crowdfunding4Context _context;
 
-        public PackagesController(Crowdfunding4Context context)
+        public PackageController(Crowdfunding4Context context)
         {
             _context = context;
         }
