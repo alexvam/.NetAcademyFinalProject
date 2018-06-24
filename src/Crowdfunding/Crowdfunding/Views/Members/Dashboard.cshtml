@@ -1,0 +1,465 @@
+﻿
+@{
+    ViewData["Title"] = "Dashboard";
+}
+<br>
+
+<br>
+<h2>Dashboard</h2>
+
+
+
+
+
+
+<!--First Top Navig With Progr bars-->
+
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<div class="container-fluid">
+    <div class="col col-md-3">
+        <div class="panel-group" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                            Projects
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse1" class="panel-collapse collapse in">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="badge">253</span> New Projects</li>
+                        <li class="list-group-item"><span class="badge">17</span> Popular</li>
+                        <li class="list-group-item"><span class="badge">3</span> Completed</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                             <div id="collapse2" class="panel-collapse collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="badge">12</span> New</li>
+                        <li class="list-group-item"><span class="badge">5</span> Deleted</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">
+                            Settings
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapse3" class="panel-collapse collapse">
+                    <ul class="list-group">
+                        <li class="list-group-item"><span class="badge">1</span> Users Reported</li>
+                        <li class="list-group-item"><span class="badge">5</span> User Waiting Activation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col col-md-9">
+        <div class="row">
+            <div class="col col-md-5">
+                <h4>Today Stats:</h4>
+                Visits<span class="pull-right strong">- 15%</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100" style="width:15%">15%</div>
+                </div>
+
+                20 New Backers<span class="pull-right strong">+ 30%</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="30" aria-valuemin="0" aria-valuemax="100" style="width:30%">30%</div>
+                </div>
+
+                35% Money Raised<span class="pull-right strong">+ 8%</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="8" aria-valuemin="0" aria-valuemax="100" style="width:8%">8%</div>
+                </div>
+            </div>
+            <div class="col col-md-5">
+                <h4>This Month Stats:</h4>
+                Visits<span class="pull-right strong">+ 45%</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width:45%">45%</div>
+                </div>
+
+                395 New Backers<span class="pull-right strong">+ 57%</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="57" aria-valuemin="0" aria-valuemax="100" style="width:57%">57%</div>
+                </div>
+
+                12% Money Raised<span class="pull-right strong">+ 5%</span>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100" style="width:25%">25%</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!--//Charts-->
+
+
+
+
+
+
+
+
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+<!--
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+-->
+<style>
+
+    .grafico {
+        min-width: 310px;
+        max-width: 400px;
+        height: 280px;
+        margin: 0 auto
+    }
+
+    .main-header {
+        font-size: x-large;
+        color: #888;
+        font-family: Verdana;
+        margin-bottom: 20px;
+    }
+
+    .destaque {
+        color: #f88;
+        font-weight: bolder;
+    }
+
+    .highcharts-tooltip h3 {
+        margin: 0.3em 0;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+
+        <div class="main-header">Project <span class="destaque">Name</span></div>
+    </div>
+
+
+
+    <div class="col-md-3">
+
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <i class="fa fa-list-ol fa-5x"></i>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="announcement-heading">4</p>
+                        <p class="announcement-text">Backers</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            View
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+
+
+    <div class="col-md-3">
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <i class="fa fa-usd fa-5x"></i>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="announcement-heading"> 9500 Euros</p>
+                        <p class="announcement-text">Collected</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            Details
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+
+    <div class="col-md-3">
+
+        <div class="panel panel-warning">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <i class="fa fa-line-chart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="announcement-heading"> 45%</p>
+                        <p class="announcement-text">Popularity</p>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            Details
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+
+
+    <div class="col-md-3">
+
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-6">
+                        <i class="fa fa-money fa-5x"></i>
+                    </div>
+                    <div class="col-xs-6 text-right">
+                        <p class="announcement-heading"> 43%</p>
+                        <p class="announcement-text">Goal Achieved <i class=""></i>  </p>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer announcement-bottom">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            Details
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <i class="fa fa-arrow-circle-right"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+
+
+
+    <div class="col-md-6">
+
+        <h3>Project Backers</h3>
+
+        <table class="table table-condensed table-bordered table-hover small">
+            <thead>
+                <tr>
+                    <th style="width:80px;">.</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Contribution</th>
+                    <th>Reward</th>
+                    <th>Country</th>
+                    <th>Comment</th>
+
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>
+                        <a href="#"> <i class="glyphicon glyphicon-dashboard"></i></a>
+                        <a href="#"> <i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="#"> <i class="glyphicon glyphicon-warning-sign"></i></a>
+                    </td>
+                    <td>
+                        Company 1
+                    </td>
+                    <td>
+                        $ 350 k
+                    </td>
+                    <td>
+                        4
+                    </td>
+                    <td>
+                        $ 291,75
+                    </td>
+                    <td>3,72</td>
+                    <td>
+                        3,65%
+                    </td>
+
+                </tr>
+
+                <tr class="danger">
+                    <td>
+                        <a href="#"> <i class="glyphicon glyphicon-dashboard"></i> </a>
+                        <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> </a>
+                        <a href="#"> <i class="glyphicon glyphicon-warning-sign"></i></a>
+                    </td>
+
+                    <td>
+                        Customer 2
+                    </td>
+                    <td>$ 270 k</td>
+                    <td>7,8 </td>
+                    <td>$ 1307.32</td>
+                    <td>2,61</td>
+                    <td>8,45%</td>
+                </tr>
+                <tr class="info">
+                    <td>
+                        <a href="#"> <i class="glyphicon glyphicon-dashboard"></i> </a>
+                        <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> </a>
+                        <a href="#"> <i class="glyphicon glyphicon-warning-sign"></i></a>
+                    </td>
+
+                    <td>
+                        Customer 3
+                    </td>
+                    <td>$ 125 k</td>
+                    <td>2,5 </td>
+                    <td>$ 312.45</td>
+                    <td>9,21</td>
+                    <td>2,5%</td>
+                </tr>
+                <tr>
+                    <td>
+                        <a href="#"> <i class="glyphicon glyphicon-dashboard"></i> </a>
+                        <a href="#"> <i class="glyphicon glyphicon-eye-open"></i> </a>
+                        <a href="#"> <i class="glyphicon glyphicon-warning-sign"></i></a>
+                    </td>
+
+                    <td>
+                        Customer 4
+                    </td>
+                    <td>$ 205 k</td>
+                    <td>7,1 </td>
+                    <td>$ 115,75</td>
+                    <td>6,27</td>
+                    <td>(n/d)</td>
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+    <div class="col-md-8">
+
+        <h3>Messages</h3>
+
+        <table class="table table-condensed table-bordered table-hover small">
+            <thead>
+                <tr>
+                    <th style="width:30px;">.</th>
+                    <th>From</th>
+                    <th>Subject</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+
+
+
+                <tr class="text-info">
+                    <td>
+                        <i class="glyphicon glyphicon-info-sign"></i>
+                    </td>
+                    <td>
+                        John Doe
+                    </td>
+                    <td>
+                        Complaint
+                    </td>
+                    <td>
+                        <a href="#"> <i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="#"> <i class="glyphicon glyphicon-arrow-right"></i> </a>
+                    </td>
+                </tr>
+
+                <tr class="text-info">
+                    <td>
+                        <i class="glyphicon glyphicon-user"></i>
+                    </td>
+                    <td>
+                        Mr Joe
+                    </td>
+                    <td>
+                        Congrats
+                    </td>
+                    <td>
+                        <a href="#"> <i class="glyphicon glyphicon-eye-open"></i></a>
+                        <a href="#"> <i class="glyphicon glyphicon-arrow-right"></i> </a>
+                    </td>
+                </tr>
+
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <div class="col-md-6">
+        <div id='grafico1' class="grafico"></div>
+    </div>
+
+    <div class="col-md-6">
+        <div id='grafico2' class="grafico"></div>
+    </div>
+    <div class="col-md-6">
+        <div id='grafico3' class="grafico"></div>
+    </div>
+
+
+
+
+
+    <div class="col-md-6">
+        <div id='grafico4' class="grafico" style="height: 400px;"></div>
+    </div>
+
+</div>
