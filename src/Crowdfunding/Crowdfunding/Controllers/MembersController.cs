@@ -213,5 +213,17 @@ namespace Crowdfunding.Controllers
         {
             return _context.Member.Any(e => e.MemberId == id);
         }
+
+
+        public ActionResult Dashboard()
+        {
+            return View();
+
+        }
+
+
     }
+
+
+    
 }

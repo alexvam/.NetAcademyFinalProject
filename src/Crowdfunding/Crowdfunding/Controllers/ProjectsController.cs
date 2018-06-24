@@ -178,5 +178,17 @@ namespace Crowdfunding.Controllers
             return _context.Project.Any(e => e.ProjectId == id);
         }
 
+
+        public ActionResult ProjectsShow()
+        {
+            return View();
+
+        }
+
+       public ActionResult ActiveProjectsShow()
+        {
+            return View();
+
+        }
     }
 }
