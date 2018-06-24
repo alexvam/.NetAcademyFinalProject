@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Crowdfunding.Models;
+using System.Security.Claims;
 
 namespace Crowdfunding.Controllers
 {
@@ -48,8 +49,24 @@ namespace Crowdfunding.Controllers
         // GET: Packages/Create
         public IActionResult Create()
         {
-            ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName");
-            ViewData["RewardsId"] = new SelectList(_context.Reward, "RewardsId", "RewardsId");
+            var memberId = this.GetMemberId();
+
+            var memberProjects = _context.Project.FromSql("SELECT * from dbo.Project").Where(u => u.MemberId == memberId);
+
+            var reward = from r in _context.Reward                       
+                       from p in _context.Project
+                       where p.MemberId == memberId && p.ProjectId == r.ProjectId
+                       select new Reward
+                       {
+                           RewardsId = r.RewardsId,
+                           Title = r.Title
+                       };
+
+            var packageReward = reward.ToList();
+
+            ViewData["ProjectId"] = new SelectList(memberProjects, "ProjectId", "ProjectName");
+            //ViewData["RewardsId"] = new SelectList(_context.Reward, "RewardsId", "RewardsId");
+            ViewData["RewardsId"] = new SelectList(packageReward, "RewardsId", "RewardsId");
             return View();
         }
 
@@ -156,6 +173,15 @@ namespace Crowdfunding.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+
+        private long GetMemberId()
+        {
+            var memberEmail = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+            return _context.Member.FromSql("SELECT * from dbo.Member").Where(m => m.EmailAddress == memberEmail).FirstOrDefault().MemberId;
+
+        }
+
 
         private bool PackageExists(long id)
         {

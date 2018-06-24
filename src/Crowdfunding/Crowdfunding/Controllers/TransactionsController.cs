@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Crowdfunding.Models;
+using System.Security.Claims;
 
 namespace Crowdfunding.Controllers
 {
@@ -49,8 +50,10 @@ namespace Crowdfunding.Controllers
         // GET: Transactions/Create
         public IActionResult Create(int id)
         {
-            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "MemberId");
-            ViewData["PackagesId"] = new SelectList(_context.Package, "PackagesId", "PackagesId");
+            var package = _context.Package.FromSql("SELECT * from dbo.Package").Where(m => m.ProjectId == id);
+
+            ViewData["MemberId"] = this.GetMemberId();
+            ViewData["PackagesId"] = new SelectList(package, "PackagesId", "Title");
             ViewData["ProjectId"] = id;
             return View();
         }
@@ -161,6 +164,14 @@ namespace Crowdfunding.Controllers
             _context.Transaction.Remove(transaction);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private long GetMemberId()
+        {
+            var memberEmail = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+            return _context.Member.FromSql("SELECT * from dbo.Member").Where(m => m.EmailAddress == memberEmail).FirstOrDefault().MemberId;
+
         }
 
         private bool TransactionExists(long id)
