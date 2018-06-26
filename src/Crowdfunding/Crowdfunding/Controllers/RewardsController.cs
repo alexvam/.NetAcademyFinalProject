@@ -46,12 +46,13 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Rewards/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             var memberId = this.GetMemberId();
 
-            var memberProjects = _context.Project.FromSql("SELECT * from dbo.Project").Where(u => u.MemberId == memberId);
-            ViewData["ProjectId"] = new SelectList(memberProjects, "ProjectId", "ProjectName");
+            //var memberProjects = _context.Project.FromSql("SELECT * from dbo.Project").Where(u => u.MemberId == memberId);
+            //ViewData["ProjectId"] = new SelectList(memberProjects, "ProjectId", "ProjectName");
+            ViewData["ProjectId"] = id;
             return View();
         }
 

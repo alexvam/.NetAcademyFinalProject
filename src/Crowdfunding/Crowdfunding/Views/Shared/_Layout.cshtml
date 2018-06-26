@@ -42,6 +42,8 @@
                     <li><a asp-area="" asp-controller="Projects" asp-action="Create">Start a Project</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
+                        <li><a asp-area="" asp-controller="Members" asp-action="Projects">My Projects</a></li>
+                        <li><a asp-area="" asp-controller="Members" asp-action="Funded">My Funded Projects</a></li>
                         <li><a asp-area="">@User.Identity.Name</a></li>
                         <li><a asp-area="" asp-controller="Members" asp-action="Logout">Logout</a></li>
                     }

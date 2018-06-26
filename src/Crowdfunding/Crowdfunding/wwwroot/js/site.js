@@ -26,3 +26,53 @@ $(document).ready(function () {
     $(this).addClass("active");
 
 });
+
+$('#submit-project').on('click', function (event) {
+    event.preventDefault();
+
+    let formData = $('#project-created-form').serialize();
+    $(this).val('Please wait ...')
+        .attr('disabled', 'disabled');
+
+    //debugger;
+    $.ajax({
+        url: 'https://localhost:44330/Projects/Create',
+        type: 'post',
+        data: formData
+    }).done(function () {
+        //alert('done');
+        $('#project-created-form').hide();
+        $('#success-created').append('Project Created Succesfully').show();
+        $('#success-created').removeClass('hidden');
+    }).fail(function () {
+        //alert('fail');
+        $('#project-created-form').hide();
+        $('#failed-created').append('Project Created failure').show();
+        $('#failed-created').removeClass('hidden');
+    })
+});
+
+$('#submit-reward').on('click', function (event) {
+    event.preventDefault();
+
+    let formData = $('#reward-created-form').serialize();
+    $(this).val('Please wait ...')
+        .attr('disabled', 'disabled');
+
+    //debugger;
+    $.ajax({
+        url: 'https://localhost:44330/Rewards/Create',
+        type: 'post',
+        data: formData
+    }).done(function () {
+        //alert('done');
+        $('#reward-created-form').hide();
+        $('#success-created-reward').append('Reward Created Succesfully').show();
+        $('#success-created-reward').removeClass('hidden');
+    }).fail(function () {
+        //alert('fail');
+        $('#reward-created-form').hide();
+        $('#failed-created-reward').append('reward Created failure').show();
+        $('#failed-created-reward').removeClass('hidden');
+    })
+});

@@ -10,16 +10,12 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" id="reward-created-form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<div class="form-group">
-                <label asp-for="RewardsId" class="control-label"></label>
-                <input asp-for="RewardsId" class="form-control" />
-                <span asp-validation-for="RewardsId" class="text-danger"></span>
-            </div>*@
             <div class="form-group">
-                <label asp-for="ProjectId" class="control-label"></label>
-                <select asp-for="ProjectId" class ="form-control" asp-items="ViewBag.ProjectId"></select>
+                @*<label asp-for="ProjectId" class="control-label"></label>
+                <select asp-for="ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>*@
+                <input asp-for="ProjectId" type="hidden" class="form-control" value="@ViewData["ProjectId"]" />
             </div>
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
@@ -47,9 +43,16 @@
                 <span asp-validation-for="Amount" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" id="submit-reward" value="Create" class="btn btn-default" />
             </div>
         </form>
+        <div id="success-created-reward" class="hidden">
+            <a asp-controller="members" asp-action="projects">Create Package</a>
+        </div>
+        <div id="failed-created-reward" class="hidden">
+            <a asp-controller="projects" asp-action="create">Create new Projects</a>
+            <a asp-controller="projects" asp-action="index">Create new Projects</a>
+        </div>
     </div>
 </div>
 

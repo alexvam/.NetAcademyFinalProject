@@ -47,15 +47,15 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Packages/Create
-        public IActionResult Create()
+        public IActionResult Create(int id)
         {
             var memberId = this.GetMemberId();
 
-            var memberProjects = _context.Project.FromSql("SELECT * from dbo.Project").Where(u => u.MemberId == memberId);
+            //var memberProjects = _context.Project.FromSql("SELECT * from dbo.Project").Where(u => u.MemberId == memberId);
 
             var reward = from r in _context.Reward                       
                        from p in _context.Project
-                       where p.MemberId == memberId && p.ProjectId == r.ProjectId
+                       where p.MemberId == memberId && p.ProjectId == r.ProjectId && r.ProjectId == id
                        select new Reward
                        {
                            RewardsId = r.RewardsId,
@@ -64,9 +64,10 @@ namespace Crowdfunding.Controllers
 
             var packageReward = reward.ToList();
 
-            ViewData["ProjectId"] = new SelectList(memberProjects, "ProjectId", "ProjectName");
+            //ViewData["ProjectId"] = new SelectList(memberProjects, "ProjectId", "ProjectName");
+            ViewData["ProjectId"] = id;
             //ViewData["RewardsId"] = new SelectList(_context.Reward, "RewardsId", "RewardsId");
-            ViewData["RewardsId"] = new SelectList(packageReward, "RewardsId", "RewardsId");
+            ViewData["RewardsId"] = new SelectList(packageReward, "RewardsId", "Title");
             return View();
         }
 
