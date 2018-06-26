@@ -26,7 +26,7 @@ namespace Crowdfunding.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Member.ToListAsync());
+            return View(await _context.Member.Where(u => u.MemberId == this.GetMemberId()).ToListAsync());
         }
 
         // GET: Projects Created

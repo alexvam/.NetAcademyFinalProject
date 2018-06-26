@@ -44,7 +44,8 @@
                     {
                         <li><a asp-area="" asp-controller="Members" asp-action="Projects">My Projects</a></li>
                         <li><a asp-area="" asp-controller="Members" asp-action="Funded">My Funded Projects</a></li>
-                        <li><a asp-area="">@User.Identity.Name</a></li>
+                        <li><a asp-area="" asp-controller="Transactions" asp-action="Index">My Transactions</a></li>
+                        <li><a asp-area="" asp-controller="Members" asp-action="Index">@User.Identity.Name</a></li>
                         <li><a asp-area="" asp-controller="Members" asp-action="Logout">Logout</a></li>
                     }
                     else

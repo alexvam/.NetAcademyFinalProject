@@ -22,7 +22,7 @@ namespace Crowdfunding.Controllers
         // GET: Transactions
         public async Task<IActionResult> Index()
         {
-            var crowdfunding4Context = _context.Transaction.Include(t => t.Member).Include(t => t.Packages).Include(t => t.Project);
+            var crowdfunding4Context = _context.Transaction.Include(t => t.Member).Include(t => t.Packages).Include(t => t.Project).Where(m => m.MemberId== this.GetMemberId());
             return View(await crowdfunding4Context.ToListAsync());
         }
 
