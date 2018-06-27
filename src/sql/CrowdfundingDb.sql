@@ -7,12 +7,12 @@ SET ANSI_PADDING ON
 SET ANSI_WARNINGS ON
 SET XACT_ABORT ON; 
 
-CREATE DATABASE [Crowdfunding];
+CREATE DATABASE [Crowdfunding6];
 GO
 
 BEGIN TRANSACTION;
 
-USE [Crowdfunding];
+USE [Crowdfunding6];
 
 CREATE TABLE dbo.ProjectStatus
 	(
@@ -141,7 +141,7 @@ ALTER TABLE dbo.Project ADD CONSTRAINT
 
 CREATE TABLE dbo.Reward
 	(
-	RewardsID bigint NOT NULL,
+	RewardsID bigint NOT NULL IDENTITY(1,1),
 	ProjectID bigint not NULL,
 	Title nvarchar(250) NULL,
 	Description nvarchar(250) NULL,
@@ -152,11 +152,10 @@ CREATE TABLE dbo.Reward
 GO
 
 ALTER TABLE dbo.Reward ADD CONSTRAINT
-	PK_Reward PRIMARY KEY CLUSTERED 
+	PK_Reward PRIMARY KEY CLUSTERED
 	(
 	RewardsID
 	) WITH( STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
-
 GO
 ALTER TABLE dbo.Reward ADD CONSTRAINT
 	FK_Reward_Project FOREIGN KEY
@@ -173,7 +172,7 @@ ALTER TABLE dbo.Reward ADD CONSTRAINT
 
 CREATE TABLE dbo.Package
 	(
-	PackagesID bigint NOT NULL,
+	PackagesID bigint NOT NULL IDENTITY(1,1),
 	ProjectID bigint not  NULL,
 	RewardsID bigint NULL,
 	Price decimal(18, 4) not NULL,

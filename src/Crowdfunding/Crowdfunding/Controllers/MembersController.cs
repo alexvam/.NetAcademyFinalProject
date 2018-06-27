@@ -26,19 +26,37 @@ namespace Crowdfunding.Controllers
         [Authorize]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Member.ToListAsync());
+            return View(await _context.Member.Where(u => u.MemberId == this.GetMemberId()).ToListAsync());
         }
 
-        // GET: Projects
+        // GET: Projects Created
         public async Task<ActionResult> Projects()
-        { 
-            var memberEmail = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
-
-            var memberId = _context.Member.FromSql("SELECT * from dbo.Member").Where(m => m.EmailAddress == memberEmail).FirstOrDefault().MemberId;
+        {
+            var memberId = this.GetMemberId();
             
             var memberProjects = await _context.Project.FromSql("SELECT * from dbo.Project").Where(u => u.MemberId == memberId).ToListAsync();            
 
             return View(memberProjects);
+
+        }
+
+        // GET: Projects Created
+        public async Task<ActionResult> Funded([Bind("MemberId")] Member member)
+        {
+            var memberId = this.GetMemberId();
+
+            var back = from p in _context.Project
+                            from t in _context.Transaction
+                            where t.MemberId == memberId && t.ProjectId == p.ProjectId
+                            select new Project
+                            {
+                                ProjectId = p.ProjectId,
+                                ProjectName = p.ProjectName
+                            };
+
+            var projectsBacked = back.ToList();
+
+            return View(projectsBacked);
 
         }
 
@@ -207,6 +225,14 @@ namespace Crowdfunding.Controllers
             _context.Member.Remove(member);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
+        }
+
+        private long GetMemberId()
+        {
+            var memberEmail = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
+
+            return _context.Member.FromSql("SELECT * from dbo.Member").Where(m => m.EmailAddress == memberEmail).FirstOrDefault().MemberId;
+
         }
 
         private bool MemberExists(long id)

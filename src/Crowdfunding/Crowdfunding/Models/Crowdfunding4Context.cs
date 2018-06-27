@@ -143,8 +143,8 @@ namespace Crowdfunding.Models
                 entity.HasKey(e => e.PackagesId);
 
                 entity.Property(e => e.PackagesId)
-                    .HasColumnName("PackagesID")
-                    .ValueGeneratedNever();
+                    .HasColumnName("PackagesID");
+                    
 
                 entity.Property(e => e.Price).HasColumnType("decimal(18, 4)");
 
@@ -234,9 +234,9 @@ namespace Crowdfunding.Models
                 entity.HasKey(e => e.RewardsId);
 
                 entity.Property(e => e.RewardsId)
-                    .HasColumnName("RewardsID")
-                    .ValueGeneratedNever();
-
+                    .HasColumnName("RewardsID");
+                    
+                
                 entity.Property(e => e.DeliveryDate).HasColumnType("datetime");
 
                 entity.Property(e => e.Description).HasMaxLength(250);

@@ -166,7 +166,7 @@ namespace Crowdfunding.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public long GetMemberId()
+        private long GetMemberId()
         {
             var memberEmail = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
 

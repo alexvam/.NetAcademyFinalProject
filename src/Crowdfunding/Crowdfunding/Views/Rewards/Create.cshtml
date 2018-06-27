@@ -1,0 +1,62 @@
+﻿@model Crowdfunding.Models.Reward
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Reward</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create" id="reward-created-form">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                @*<label asp-for="ProjectId" class="control-label"></label>
+                <select asp-for="ProjectId" class="form-control" asp-items="ViewBag.ProjectId"></select>*@
+                <input asp-for="ProjectId" type="hidden" class="form-control" value="@ViewData["ProjectId"]" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label"></label>
+                <input asp-for="Description" class="form-control" />
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ItemsIncluded" class="control-label"></label>
+                <input asp-for="ItemsIncluded" class="form-control" />
+                <span asp-validation-for="ItemsIncluded" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="DeliveryDate" class="control-label"></label>
+                <input asp-for="DeliveryDate" class="form-control" />
+                <span asp-validation-for="DeliveryDate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Amount" class="control-label"></label>
+                <input asp-for="Amount" class="form-control" />
+                <span asp-validation-for="Amount" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" id="submit-reward" value="Create" class="btn btn-default" />
+            </div>
+        </form>
+        <div id="success-created-reward" class="hidden">
+            <a asp-controller="members" asp-action="projects">Create Package</a>
+        </div>
+        <div id="failed-created-reward" class="hidden">
+            <a asp-controller="projects" asp-action="create">Create new Projects</a>
+            <a asp-controller="projects" asp-action="index">Create new Projects</a>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
