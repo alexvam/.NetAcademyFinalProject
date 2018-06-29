@@ -39,11 +39,12 @@ $('#submit-project').on('click', function (event) {
         url: 'https://localhost:44330/Projects/Create',
         type: 'post',
         data: formData
-    }).done(function () {
+    }).done(function (data) {
         //alert('done');
-        $('#project-created-form').hide();
+        window.location.href = data.redirectUrl;
+        /*$('#project-created-form').hide();
         $('#success-created').append('Project Created Succesfully').show();
-        $('#success-created').removeClass('hidden');
+        $('#success-created').removeClass('hidden');*/
     }).fail(function () {
         //alert('fail');
         $('#project-created-form').hide();
@@ -64,11 +65,12 @@ $('#submit-reward').on('click', function (event) {
         url: 'https://localhost:44330/Rewards/Create',
         type: 'post',
         data: formData
-    }).done(function () {
+    }).done(function (data) {
         //alert('done');
-        $('#reward-created-form').hide();
+        window.location.href = data.redirectUrl;
+        /*$('#reward-created-form').hide();
         $('#success-created-reward').append('Reward Created Succesfully').show();
-        $('#success-created-reward').removeClass('hidden');
+        $('#success-created-reward').removeClass('hidden');*/
     }).fail(function () {
         //alert('fail');
         $('#reward-created-form').hide();

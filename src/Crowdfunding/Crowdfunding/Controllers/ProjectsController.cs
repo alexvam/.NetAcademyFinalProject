@@ -69,7 +69,11 @@ namespace Crowdfunding.Controllers
             {
                 _context.Add(project);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return Json(new
+                {
+                    RedirectUrl = Url.Action("create", "rewards", new { id = project.ProjectId})
+                });
             }
             ViewData["ProjectCategoryId"] = new SelectList(_context.ProjectCategory, "CategoryId", "CategoryDescription", project.ProjectCategoryId);
             ViewData["Status"] = new SelectList(_context.ProjectStatus, "StatusId", "StatusCategory", project.Status);
