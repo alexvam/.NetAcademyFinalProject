@@ -142,50 +142,56 @@
 </div>
 
 <br>
-<br>
-<br>
-<br>
+
 
 <div class="row">
     <div class="col-md-4">
         <h1>Comments</h1>
-        <form asp-action="ProjectsShow">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-controller="Comments" asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger">
+                @*@Html.ActionLink("Comment", "Create", "Comments", new { @ID=Model.ProjectId }, null)*@
+            </div>
+         
+            <div class="form-group">
+                <input asp-for="MemberId" type="hidden" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input asp-for="ProjectId" type="hidden" class="form-control" />
+                @*<input type="text" value="@Model.ProjectId" name="@Html.NameFor(m => m.ProjectId)" />*@
+            </div>
             <div class="form-group">
                 <label asp-for="Comment1" class="control-label"></label>
                 <input asp-for="Comment1" class="form-control" />
                 <span asp-validation-for="Comment1" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="MemberId" type="hidden" class="form-control" value="@Html.DisplayFor(model => model.MemberId)" />
+                <label asp-for="Date" class="control-label"></label>
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input asp-for="ProjectId" type="hidden" class="form-control" value="@Html.DisplayFor(model => model.ProjectId)" />
-            </div>
-            <div class="form-group">
-                <input asp-for="CommentId" type="hidden" class="form-control" value="1" />
-            </div>
-            <div class="form-group">
-                <input asp-for="Date" type="hidden" class="form-control" value="2018-05-22" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Comment" class="btn btn-default" />
             </div>
         </form>
-        <div>
-            <a asp-action="ProjectsShow">Back to List</a>
-        </div>
+            <div>
+                <a asp-action="ProjectsShow">Back to List</a>
+            </div>
 
-        @*<ul>
 
+            <ul>
                 @foreach (var item in Model)
                 {
-                    <li class=" rewards box">
-                        @Html.DisplayFor(Modelitem => item.Title)
-                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Price)</div>
+                    <li class="comment List">
+                        @Html.DisplayFor(modelItem => item.Rewards)
+                        @*<div class="pledge info">@Html.DisplayFor(Modelitem => item.Price)</div>
+                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Description)</div>
+                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Amount)</div>
+                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.DeliveryDate)</div>
+                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.ItemsIncluded)</div>
+                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Title)</div>*@
                     </li>
                 }
-            </ul>*@
+            </ul>
     </div>
 </div>
 

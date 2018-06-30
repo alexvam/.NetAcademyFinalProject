@@ -32,6 +32,7 @@ namespace Crowdfunding.Models
         public string Comment1 { get; set; }
         public DateTime Date { get; set; }
         public long MemberId { get; set; }
+        public IEnumerable<Comment> ListComments { get; set; }
 
 
         public Project Project { get; set; }
@@ -39,7 +40,7 @@ namespace Crowdfunding.Models
         public ICollection<Package> Package { get; set; }
         public ICollection<Reward> Reward { get; set; }
         public ProjectCategory ProjectCategory { get; set; }
-        public Comment Comment { get; set; }
+        public ICollection<Comment> Comment { get; set; }
 
         public IEnumerator<Package> GetEnumerator()
         {
@@ -52,6 +53,12 @@ namespace Crowdfunding.Models
             return ListRewards.GetEnumerator();
 
         }
+
+        //public IEnumerator<Comment> GetEnu()
+        //{
+        //    return ListComments.GetEnumerator();
+
+        //}
 
     }
 }

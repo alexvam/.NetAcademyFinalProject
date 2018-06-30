@@ -196,6 +196,8 @@ namespace Crowdfunding.Controllers
                 return BadRequest();
             }
 
+            projects.ProjectId = projectID.ProjectId;
+           // projects.MemberId = GetMemberId();
             projects.ProjectName =  await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().ProjectName;
             projects.ProjectDescription = await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().ProjectDescription;
             projects.StartDate = await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().StartDate;
@@ -226,10 +228,13 @@ namespace Crowdfunding.Controllers
             projects.ListPackages = await GetItemsAsyncPackages(ID);
             projects.ListRewards= await GetItemsAsyncReward(ID);
 
+            projects.ListComments = await GetItemsAsyncComment(ID);
+
+
             //projects.MemberId = GetMemberId();
             //projects.ProjectId = await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().ProjectId;
 
-   
+
 
             return View(projects);
         }
@@ -257,12 +262,16 @@ namespace Crowdfunding.Controllers
             return await await_context.Reward.Where(x => x.ProjectId == ID).ToListAsync();
         }
 
+        private async Task<List<Comment>> GetItemsAsyncComment(long? ID)
+        {
+            return await await_context.Comment.Where(x => x.ProjectId == ID).ToListAsync();
+        }
         //private long UserId() =>
         //    long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
 
 
-            public ActionResult ActiveProjectsShow()
+        public ActionResult ActiveProjectsShow()
         {
             return View();
 
