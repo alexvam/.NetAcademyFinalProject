@@ -78,3 +78,24 @@ $('#submit-reward').on('click', function (event) {
         $('#failed-created-reward').removeClass('hidden');
     })
 });
+
+$(".js-delete").on("click", function () {
+    var button = $(this);
+    if (confirm("Are you sure you want to delete this package?")) {
+        $.ajax({
+            url: "api/package/" + button.attr("data-package-id"),
+            method: "DELETE",
+            success: function () {
+                console.log("success");
+                button.parents("tr").remove();
+            }
+        });
+    }
+});
+
+$('#password, #confirm-password').on('keyup', function () {
+    if ($('#password').val() == $('#confirm-password').val() && $('#password').val() != "") {
+        $('#message').html('Matching').css('color', 'green');
+    } else
+        $('#message').html('Not Matching').css('color', 'red');
+});

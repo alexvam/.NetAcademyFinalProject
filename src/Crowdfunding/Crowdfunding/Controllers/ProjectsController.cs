@@ -55,6 +55,7 @@ namespace Crowdfunding.Controllers
             ViewData["MemberId"] = this.GetMemberId();
             ViewData["ProjectCategoryId"] = new SelectList(_context.ProjectCategory, "CategoryId", "CategoryDescription");
             ViewData["Status"] = new SelectList(_context.ProjectStatus, "StatusId", "StatusCategory");
+            ViewData["StartDate"] = DateTime.Now;
             return View();
         }
 

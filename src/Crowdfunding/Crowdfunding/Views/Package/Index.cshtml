@@ -42,7 +42,8 @@
             <td>
                 <a asp-action="Edit" asp-route-id="@item.PackagesId">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.PackagesId">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.PackagesId">Delete</a>
+                @*<a asp-action="Delete" asp-route-id="@item.PackagesId">Delete</a>*@
+                <button data-package-id="@item.PackagesId" class="btn-link js-delete">Delete</button>
             </td>
         </tr>
 }
