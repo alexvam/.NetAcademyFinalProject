@@ -18,10 +18,27 @@ namespace Crowdfunding.Controllers
             _context = context;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchInput)
         {
-            var crowdfunding4Context = _context.Project.Include(p => p.Member).Include(p => p.ProjectCategory).Include(p => p.StatusNavigation);
-            return View(await crowdfunding4Context.ToListAsync());
+            List<Project> projects;
+
+            if (string.IsNullOrWhiteSpace(searchInput))
+            {
+                projects = await _context.Project
+                .Include(p => p.Member)
+                .Include(p => p.ProjectCategory)
+                .Include(p => p.StatusNavigation)
+                .ToListAsync();
+            } else
+            {
+                projects = await _context.Project
+                .Include(p => p.Member)
+                .Include(p => p.ProjectCategory).
+                Include(p => p.StatusNavigation).
+                Where(p => p.ProjectName.Contains(searchInput)|| p.ProjectDescription.Contains(searchInput)).ToListAsync();               
+            }
+            
+            return View(projects);
         }
 
         // GET: Projects/Details/5
