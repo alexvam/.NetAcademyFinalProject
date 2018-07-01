@@ -69,8 +69,8 @@ namespace Crowdfunding.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context.Add(project);
-                await _context.SaveChangesAsync();
+                await_context.Add(project);
+                await await_context.SaveChangesAsync();
                 //return RedirectToAction(nameof(Index));
                 return Json(new
                 {

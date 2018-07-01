@@ -17,7 +17,7 @@
     </div>
 </nav>
 <!--Search bar-->
-<div class="container pb-6" style="margin-top: 30px; margin-left: 700px;">
+<div class="container pb-2" style="margin-top: 50px; margin-left: 700px;">
     <div id="custom-search-input">
         <form asp-action="Index" method="get">
             <div class="input-group col-md-5">
@@ -54,8 +54,9 @@
                     <img class="card-img-top" src="~/images/empty.png" alt="Card image cap">
                     <div class="card-block p-3">
                         <h4 class="card-title">@Html.DisplayFor(modelItem => item.ProjectName)</h4>
-                        <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>
-                        <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>                        
+                        @Html.ActionLink("Read More", "ProjectsShow", "Projects", new { id = item.ProjectId }, new {@class="btn btn-primary rounded-0 mb-2" })
+                        @Html.ActionLink("Fund", "Create", "Transactions", new { id = item.ProjectId }, new { @class = "btn btn-primary rounded-0 mb-2" })
                     </div>
                 </div>
             </div>
