@@ -56,6 +56,7 @@ namespace Crowdfunding.Controllers
             ViewData["MemberId"] = this.GetMemberId();
             ViewData["ProjectCategoryId"] = new SelectList(await_context.ProjectCategory, "CategoryId", "CategoryDescription");
             ViewData["Status"] = new SelectList(await_context.ProjectStatus, "StatusId", "StatusCategory");
+            ViewData["StartDate"] = DateTime.Now;
             return View();
         }
 
@@ -68,9 +69,13 @@ namespace Crowdfunding.Controllers
         {
             if (ModelState.IsValid)
             {
-                await_context.Add(project);
-                await await_context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                _context.Add(project);
+                await _context.SaveChangesAsync();
+                //return RedirectToAction(nameof(Index));
+                return Json(new
+                {
+                    RedirectUrl = Url.Action("create", "rewards", new { id = project.ProjectId})
+                });
             }
             ViewData["ProjectCategoryId"] = new SelectList(await_context.ProjectCategory, "CategoryId", "CategoryDescription", project.ProjectCategoryId);
             ViewData["Status"] = new SelectList(await_context.ProjectStatus, "StatusId", "StatusCategory", project.Status);

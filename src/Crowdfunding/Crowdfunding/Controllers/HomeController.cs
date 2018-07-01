@@ -5,14 +5,61 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Crowdfunding.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Crowdfunding.Controllers
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private readonly Crowdfunding4Context _context;
+
+        public HomeController(Crowdfunding4Context context)
         {
-            return View();
+            _context = context;
+        }
+
+        public async Task<IActionResult> Index(string searchInput)
+        {
+            List<Project> projects;
+
+            if (string.IsNullOrWhiteSpace(searchInput))
+            {
+                projects = await _context.Project
+                .Include(p => p.Member)
+                .Include(p => p.ProjectCategory)
+                .Include(p => p.StatusNavigation)
+                .ToListAsync();
+            } else
+            {
+                projects = await _context.Project
+                .Include(p => p.Member)
+                .Include(p => p.ProjectCategory).
+                Include(p => p.StatusNavigation).
+                Where(p => p.ProjectName.Contains(searchInput)|| p.ProjectDescription.Contains(searchInput)).ToListAsync();               
+            }
+            
+            return View(projects);
+        }
+
+        // GET: Projects/Details/5
+        public async Task<IActionResult> Details(long? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var project = await _context.Project
+                .Include(p => p.Member)
+                .Include(p => p.ProjectCategory)
+                .Include(p => p.StatusNavigation)
+                .FirstOrDefaultAsync(m => m.ProjectId == id);
+            if (project == null)
+            {
+                return NotFound();
+            }
+
+            return View(project);
         }
 
         public IActionResult About()

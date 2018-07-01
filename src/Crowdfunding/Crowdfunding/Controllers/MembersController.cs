@@ -91,7 +91,7 @@ namespace Crowdfunding.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MemberId,PhoneNumber,Address,Country,City,PostCode,FirstName,LastName,EmailAddress,Password,ConfirmPassword,Birthday")] Member member)
         {
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && member.Password == member.ConfirmPassword)
             {
                 _context.Add(member);
                 await _context.SaveChangesAsync();
@@ -110,7 +110,7 @@ namespace Crowdfunding.Controllers
         // POST: Members/Login
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login([Bind("EmailAddress,Password")] Member member, string returnUrl = null)
+        public async Task<IActionResult> Login([Bind("EmailAddress,Password,ConfirmPassword")] Member member, string returnUrl = null)
         {
             var usr = _context.Member.Where(u => u.EmailAddress == member.EmailAddress && u.Password == member.Password).FirstOrDefault();
 

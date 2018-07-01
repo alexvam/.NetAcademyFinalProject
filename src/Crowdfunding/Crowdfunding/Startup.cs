@@ -37,8 +37,7 @@ namespace Crowdfunding
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });*/
 
-
-            var connection = @"Server=BIM-LPT-AM\C3DSQLSERVER11;Database=Crowdfunding;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=DESKTOP-QVR4GU3\SQLEXPRESS;Database=CrowdfundingNew;Trusted_Connection=True;ConnectRetryCount=0";
 
 
             services.AddDbContext<Crowdfunding4Context>(

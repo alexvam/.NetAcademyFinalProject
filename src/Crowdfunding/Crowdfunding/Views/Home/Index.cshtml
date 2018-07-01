@@ -1,9 +1,16 @@
-﻿@{
+﻿@model IEnumerable<Crowdfunding.Models.Project>
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
 <nav>
-    <div class="container">        
+    <div class="container">
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -12,154 +19,73 @@
 <!--Search bar-->
 <div class="container pb-6" style="margin-top: 30px; margin-left: 700px;">
     <div id="custom-search-input">
-        <div class="input-group col-md-5">
-            <input type="text" class="  search-query form-control" placeholder="Search project" />
-            <span class="input-group-btn">
-                <button class="btn btn-danger" type="button">
-                    <span class=" glyphicon glyphicon-search"></span>
-                </button>
-            </span>
-        </div>
+        <form asp-action="Index" method="get">
+            <div class="input-group col-md-5">
+                <input type="text" class="form-control" id="system-search" name="searchInput" placeholder="Search project" required />
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default" id="search-button"><i class="glyphicon glyphicon-search"></i></button>
+                </span>
+            </div>
+        </form>
     </div>
 </div>
-<!--Navigation Slider-->
-<!-- Carousel Slider -->
-<!-- Card -->
+
+<!-- Categories -->
 <div class="container container mt-4 mb-5">
     <h3 class="display-4 text-center"> Projects </h3>
+
     <div align="center">
         <button class="btn btn-default filter-button" data-filter="all">All Categories</button>
-        <button class="btn btn-default filter-button" data-filter="healthcare">Healthcare</button>
-        <button class="btn btn-default filter-button" data-filter="tech&inno">Tech & Innovation</button>
-        <button class="btn btn-default filter-button" data-filter="community">Community Projects</button>
-        <button class="btn btn-default filter-button" data-filter="creative">Creative Works</button>
+        @foreach (var item in Model.Select(m => m.ProjectCategory).Distinct().ToList())
+        {
+            <button class="btn btn-default filter-button" data-filter=@Html.DisplayFor(modelItem => item.CategoryId)> @Html.DisplayFor(modelItem => item.CategoryDescription)</button>
+        }
     </div>
-    <br />    
-
+    <br />
+    <!-- End of Categories -->
+    <!-- Projects -->
     <hr class="bg-dark mb-4 w-25">
     <div class="row">
-        <div class="col-md-4">
-            <div class="card filter creative">
-                <img class="card-img-top" src="~/images/HEALTH.JPG" alt="Card image cap">
-                <div class="card-block p-3">
-                    <h4 class="card-title">Project Name</h4>
-                    <p class="card-text">Project Description</p>
-                    <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
+
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4">
+                <div class="card-filter @Html.DisplayFor(modelItem => item.ProjectCategory.CategoryId)">
+                    <img class="card-img-top" src="~/images/empty.png" alt="Card image cap">
+                    <div class="card-block p-3">
+                        <h4 class="card-title">@Html.DisplayFor(modelItem => item.ProjectName)</h4>
+                        <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>
+                        <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card filter tech&inno">
-                <img class="card-img-top" src="~/images/SOLAR.JPG" alt="Card image cap">
-                <div class="card-block p-3">
-                    <h4 class="card-title">Project Name</h4>
-                    <p class="card-text">Project Description</p>
-                    <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="card filter community">
-                <img class="card-img-top" src="~/images/technology.jpg" alt="Card image cap">
-                <div class="card-block p-3">
-                    <h4 class="card-title">Project Name</h4>
-                    <p class="card-text">Project Description</p>
-                    <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
-                </div>
-            </div>
-        </div>
+        }
     </div>
 </div>
-
-<!--Try for NavSlid -->
-<div class="container pb-4">
-    <h3 class="display-4 text-center">Most Popular</h3>
-    <hr class="bg-dark w-25">
-</div>
-
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
-<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
-<!------ Include the above in your HEAD tag ---------->
-<div class="container">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-
-            <div class="item active">
-                <img class="contimg" src="~/images/Airbnb.jpg">
-                <div class="carousel-caption">
-                    <h3>Headline</h3>
-                    <p>i Am a cool Description Fund Me Mr.</p>
-                </div>
-            </div><!-- End Item -->
-
-            <div class="item">
-                <img class="contimg" src="~/images/Innovation.jpeg">
-                <div class="carousel-caption">
-                    <h3>Innovation</h3>
-                    <p>Fund Education Projects</p>
-                </div>
-            </div><!-- End Item -->
-
-            <div class="item">
-                <img class="contimg" src="~/images/Medicine.jpeg">
-                <div class="carousel-caption">
-                    <h3>Healthcare</h3>
-                    <p>Fund Medical Projects.</p>
-                </div>
-            </div><!-- End Item -->
-
-            <div class="item">
-                <img class="contimg" src="~/images/House.jpg">
-                <div class="carousel-caption">
-                    <h3>Retail</h3>
-                    <p>Fund housing Projects.</p>
-                </div>
-            </div><!-- End Item -->
-
-        </div><!-- End Carousel Inner -->
-
-        <ul class="nav nav-pills nav-justified">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"><a href="#">Cool<small>Description Category</small></a></li>
-            <li data-target="#myCarousel" data-slide-to="1"><a href="#">Innovation<small>Innovation Category</small></a></li>
-            <li data-target="#myCarousel" data-slide-to="2"><a href="#">Healthcare<small>Healthcare Category</small></a></li>
-            <li data-target="#myCarousel" data-slide-to="3"><a href="#">Retail<small>Retail Category</small></a></li>
-        </ul>
-
-    </div><!-- End Carousel -->
-</div>
-
-
-
-<!--Try For Social Share Icons 1 -->
+<!-- End of Projects -->
 <!-- Add icon library -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<div class="bg-white">
-    <div class="container">
-        <div class="row py-4">
-        </div>
-    </div>
-</div>
 
 <!-- Footer -->
 <footer class="footer bg-dark text-white">
     <!-- Social Icons -->
+    @*<div id="fb-root"></div>
+    <script>
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/el_GR/sdk.js#xfbml=1&version=v3.0';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+    <div class="fb-share-button" data-href="http://localhost:64710/" data-layout="button" data-size="small" data-mobile-iframe="false">
+        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2Flocalhost%3A64710%2F&amp;src=sdkpreparse" class="fb-xfbml-parse-ignore">Share</a>
+    </div>*@
     <div class="bg-info">
         <div class="container">
             <div class="row py-4">
-                <div class="col-md-6 col-lg-7">
-                    <h3 class="mb-0 white-text">Share on social media!</h3>
-                </div>
-                <div class="col-md-6 col-lg-4 text-right">
-                    <a href="https://www.facebook.com/" class="fa fa-facebook m-3 fa-2x" style="color:white"></a>
-                    <a href="https://twitter.com/" class="fa fa-twitter white-text m-3 fa-2x" style="color:white"></a>
-                    <a href="https://plus.google.com/" class="fa fa-google-plus white-text m-3 fa-2x" style="color:white"></a>
-                    <a href="https://plus.google.com/" class="fa fa-linkedin white-text m-3 fa-2x" style="color:white"></a>
-                    <a href="https://www.instagram.com/" class="fa fa-instagram white-text m-3 fa-2x" style="color:white"></a>
-                </div>
+
+
             </div>
         </div>
     </div>
@@ -170,43 +96,38 @@
     <!-- Footer Links -->
     <div class="container pt-5 pb-2">
         <div class="row">
-            <div class="col-md-3 col-lg-4 col-xl-3">
-                <h4>Crowdunder</h4>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <p>
-                    When an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting
+            <div class="col-lg-1 col-xl-3 mx-5">
+                <h4 class="mb-0 white-text">Connect with us!</h4>
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-50">
+                <p><a href="https://developers.facebook.com/docs/plugins/" class="fa fa-facebook m-2 fa-1x" style="color:white"></a>
+                    <a href="https://twitter.com/" class="fa fa-twitter white-text m-2 fa-1x" style="color:white"></a>
+                    <a href="https://plus.google.com/" class="fa fa-google-plus white-text m-2 fa-1x" style="color:white"></a>
+                    <a href="https://plus.google.com/" class="fa fa-linkedin white-text m-2 fa-1x" style="color:white"></a>
+                    <a href="https://www.instagram.com/" class="fa fa-instagram white-text m-2 fa-1x" style="color:white"></a>
                 </p>
             </div>
-            <div class="col-md-2 col-lg-2 col-xl-2 mx-auto">
-                <h4>Products</h4>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
-                <p><a href="#" class="text-white">Product-1</a></p>
-                <p><a href="#" class="text-white">Product-2</a></p>
-                <p><a href="#" class="text-white">Product-3</a></p>
-                <p><a href="#" class="text-white">Product-4</a></p>
-            </div>
-            <div class="col-md-3 col-lg-2 col-xl-2 mx-auto">
+            <div class="col-lg-2 col-xl-3 mx-5">
                 <h4>Useful links</h4>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-50">
                 <p><a href="#" class="text-white">Home</a></p>
-                <p><a href="#" class="text-white">About Us</a></p>
-                <p><a href="#" class="text-white">Services</a></p>
+                <p><a href="#" class="text-white">About</a></p>
                 <p><a href="#" class="text-white">Contact</a></p>
+                <p><a href="#" class="text-white">Start a Project</a></p>
             </div>
-            <div class="col-md-4 col-lg-3 col-xl-3">
+            <div class="col-lg-3 col-xl-3 mx-5">
                 <h4>Contact</h4>
-                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-25">
+                <hr class="bg-white mb-2 mt-0 d-inline-block mx-auto w-50">
                 <p><i class="fa fa-home mr-3"></i>Kifisia</p>
                 <p><i class="fa fa-envelope mr-3"></i> info@crowdfunder.com</p>
                 <p><i class="fa fa-phone mr-3"></i> + 30 6945 023 344</p>
                 <p><i class="fa fa-print mr-3"></i> + 30 698 345 954</p>
-            </div>
+            </div>           
         </div>
     </div>
-    
-    <!-- Copyright-->
-    <div class="container-fluid">
-    </div>
-    <!-- Copyright -->
+
+        <!-- Copyright-->
+        <div class="container-fluid">
+        </div>
+        <!-- Copyright -->
 </footer>
 <!-- Footer -->
