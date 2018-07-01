@@ -36,7 +36,9 @@ $('#submit-project').on('click', function (event) {
 
     //debugger;
     $.ajax({
-        url: 'https://localhost:44330/Projects/Create',
+        //url: '@this.Url.Action("Create","Projects")'
+        //url: 'https://localhost:44330/Projects/Create',
+        url: 'http://localhost:64710/Projects/Create',
         type: 'post',
         data: formData
     }).done(function (data) {
@@ -62,7 +64,8 @@ $('#submit-reward').on('click', function (event) {
 
     //debugger;
     $.ajax({
-        url: 'https://localhost:44330/Rewards/Create',
+        //url: '@this.Url.Action("Create","Rewards")',
+        url: 'http://localhost:64710/Rewards/Create',
         type: 'post',
         data: formData
     }).done(function (data) {
