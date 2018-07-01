@@ -24,8 +24,9 @@ namespace Crowdfunding.Controllers
         // GET: Comments
         public async Task<IActionResult> Index()
         {
-            var crowdfunding4Context = _context.Comment.Include(c => c.Member).Include(c => c.Project);
+            var crowdfunding4Context = _context.Comment.Include(c => c.Member).Include(c => c.Project).Where(m => m.MemberId == this.GetMemberId());
             return View(await crowdfunding4Context.ToListAsync());
+
         }
 
         // GET: Comments/Details/5
@@ -61,28 +62,31 @@ namespace Crowdfunding.Controllers
         // POST: Comments/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create( Comment comment)
         {
-            //var projectid = await GetProjectAsync(id);
-            //comment.MemberId = GetMemberId();
-            //comment.ProjectId = _context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == id).FirstOrDefault().ProjectId;
+
+            // na kanei valisation kai text kai imerominies. den bgazei omos minimata se periptosi lathous
+
             comment.MemberId = GetMemberId();
-            //_context.Add(comment);
-            //await _context.SaveChangesAsync();
-            //return RedirectToAction(nameof(Index));
+            DateTime highdate = new DateTime(9999, 12, 31);
+            DateTime lowDate = new DateTime(1753, 01, 01);
+            
+          
 
-
-            if (ModelState.IsValid)
+            if (ModelState.IsValid && comment.Date> lowDate&& comment.Date< highdate && comment.Comment1!=null)
             {
 
                 _context.Add(comment);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("ProjectsShow", "Projects", new {id = comment.ProjectId });
             }
 
-            return View(comment);
+                ViewBag.Message = "Invalid value.";
+               return RedirectToAction("ProjectsShow", "Projects", new { id = comment.ProjectId });
         }
 
             // GET: Comments/Edit/5
@@ -98,8 +102,8 @@ namespace Crowdfunding.Controllers
             {
                 return NotFound();
             }
-            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "ConfirmPassword", comment.MemberId);
-            ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName", comment.ProjectId);
+            //ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "ConfirmPassword", comment.MemberId);
+            //ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName", comment.ProjectId);
             return View(comment);
         }
 
@@ -135,8 +139,8 @@ namespace Crowdfunding.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "ConfirmPassword", comment.MemberId);
-            ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName", comment.ProjectId);
+            //ViewData["MemberId"] = new SelectList(_context.Member, "MemberId", "ConfirmPassword", comment.MemberId);
+            //ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName", comment.ProjectId);
             return View(comment);
         }
 

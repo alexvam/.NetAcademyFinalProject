@@ -205,6 +205,10 @@ namespace Crowdfunding.Controllers
             projects.Target = await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().Target;
             projects.ProjectLocation= await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().ProjectLocation;
 
+            projects.FirstName = await_context.Project.Include(p => p.Member).Where(p => p.ProjectId == ID).FirstOrDefault().Member.FirstName;
+            projects.EmailAddress = await_context.Project.Include(p => p.Member).Where(p => p.ProjectId == ID).FirstOrDefault().Member.EmailAddress;
+
+
             projects.CategoryDescription = (from d in await_context.Project
                                             join f in await_context.ProjectCategory
                                             on d.ProjectCategoryId equals f.CategoryId
@@ -225,12 +229,13 @@ namespace Crowdfunding.Controllers
                               where d.ProjectId == ID
                               select g.Price).Sum();
 
-            projects.ListPackages = await GetItemsAsyncPackages(ID);
-            projects.ListRewards= await GetItemsAsyncReward(ID);
 
-            projects.ListComments = await GetItemsAsyncComment(ID);
-
-
+            //projects.ListPackages = await GetItemsAsyncPackages(ID);
+            //projects.ListRewards= await GetItemsAsyncReward(ID);
+            // projects.ListComments = await GetItemsAsyncComment(ID);
+            projects.PackageRewards = await GetItemsAsyncPackagesRewards(ID);
+            projects.CommentMember = await GetItemsAsyncCommentMember(ID);
+            projects.ListBackers = await GetBackers(ID);
             //projects.MemberId = GetMemberId();
             //projects.ProjectId = await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().ProjectId;
 
@@ -252,20 +257,30 @@ namespace Crowdfunding.Controllers
           await_context.Project
           .FirstOrDefaultAsync(p => p.ProjectId == ID);
 
-        private async Task<List<Package>> GetItemsAsyncPackages(long? ID)
+        private async Task<List<Package>> GetItemsAsyncPackagesRewards(long? ID)
         {
-            return await await_context.Package.Where(x => x.ProjectId == ID).ToListAsync();
+            return await await_context.Package.Include(x=>x.Rewards).Where(x => x.ProjectId == ID).ToListAsync();
         }
 
-        private async Task<List<Reward>> GetItemsAsyncReward(long? ID)
+        //private async Task<List<Reward>> GetItemsAsyncReward(long? ID)
+        //{
+        //    return await await_context.Reward.Where(x => x.ProjectId == ID).ToListAsync();
+        //}
+
+        //private async Task<List<Comment>> GetItemsAsyncComment(long? ID)
+        //{
+        //    return await await_context.Comment.Where(x => x.ProjectId == ID).ToListAsync();
+        //}
+
+        private async Task<List<Comment>> GetItemsAsyncCommentMember(long? ID)
         {
-            return await await_context.Reward.Where(x => x.ProjectId == ID).ToListAsync();
+            return await await_context.Comment.Include(x=>x.Member).Where(x => x.ProjectId == ID).ToListAsync();
+        }
+        private async Task<List<Transaction>> GetBackers(long? ID)
+        {
+            return await await_context.Transaction.Include(x => x.Member).Include(x=>x.Packages).Where(x => x.ProjectId == ID).ToListAsync();
         }
 
-        private async Task<List<Comment>> GetItemsAsyncComment(long? ID)
-        {
-            return await await_context.Comment.Where(x => x.ProjectId == ID).ToListAsync();
-        }
         //private long UserId() =>
         //    long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 

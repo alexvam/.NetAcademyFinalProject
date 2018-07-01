@@ -26,13 +26,19 @@ namespace Crowdfunding.Models
         public string ItemsIncluded { get; set; }
         public DateTime? DeliveryDate { get; set; }
         public int Amount { get; set; }
-        public IEnumerable<Package> ListPackages { get; set; }
-        public IEnumerable<Reward> ListRewards { get; set; }
+        //public IEnumerable<Package> ListPackages { get; set; }
+        //public IEnumerable<Reward> ListRewards { get; set; }
+        public IEnumerable<Package> PackageRewards { get; set; }
+        public IEnumerable<Transaction>ListBackers { get; set; }
         public long CommentId { get; set; }
         public string Comment1 { get; set; }
         public DateTime Date { get; set; }
         public long MemberId { get; set; }
-        public IEnumerable<Comment> ListComments { get; set; }
+        //public IEnumerable<Comment> ListComments { get; set; }
+        public string FirstName { get; set; }
+        public IEnumerable<Comment> CommentMember { get; set; }
+        public string EmailAddress { get; set; }
+
 
 
         public Project Project { get; set; }
@@ -41,24 +47,11 @@ namespace Crowdfunding.Models
         public ICollection<Reward> Reward { get; set; }
         public ProjectCategory ProjectCategory { get; set; }
         public ICollection<Comment> Comment { get; set; }
+        public virtual ICollection<Member> Members { get; set; }
 
-        public IEnumerator<Package> GetEnumerator()
-        {
-            return ListPackages.GetEnumerator();
+  
 
-        }
-
-        public IEnumerator<Reward> GetEnum()
-        {
-            return ListRewards.GetEnumerator();
-
-        }
-
-        //public IEnumerator<Comment> GetEnu()
-        //{
-        //    return ListComments.GetEnumerator();
-
-        //}
+    
 
     }
 }

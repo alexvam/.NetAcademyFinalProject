@@ -42,6 +42,18 @@
                 <div class="details col-md-3">
                     <div class="panel panel-default text-center">
                         <div class="rating">
+                            <h3><div class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>  Project Creator</div></h3>
+                            <hr>
+                            <h4 class="project-category">@Html.DisplayFor(model => model.FirstName)</h4>
+                            <h4 class="project-category">@Html.DisplayFor(model => model.EmailAddress)</h4>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="details col-md-3">
+                    <div class="panel panel-default text-center">
+                        <div class="rating">
                             <h3><div class="panel-title"><span class="glyphicon glyphicon-comment"></span>   Category</div></h3>
                             <hr>
                             <h4 class="project-description">@Html.DisplayFor(model => model.CategoryDescription) </h4>
@@ -50,7 +62,7 @@
                 </div>
 
 
-                <div class="details col-md-3" >
+                <div class="details col-md-3">
                     <div class="panel panel-default text-center">
                         <h3><div class="panel-title"><span class="glyphicon glyphicon-credit-card"></span> Pledged Amount</div></h3>
                         <hr>
@@ -126,17 +138,22 @@
     <h3>Packages List</h3>
 
     <ul>
-        @foreach (var item in Model)
+        @foreach (var item in Model.PackageRewards)
         {
-            <li class=" rewards box">
-                @Html.DisplayFor(Modelitem => item.Title)
-                <div class="pledge info">@Html.DisplayFor(Modelitem => item.Price)</div>
-                <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Description)</div>
-                <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Amount)</div>
-                <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.DeliveryDate)</div>
-                <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.ItemsIncluded)</div>
-                <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Title)</div>
-            </li>
+        <li class=" rewards box">
+            @Html.DisplayFor(Modelitem => item.Title)
+            <div class="pledge info">Rewards: Title @Html.DisplayFor(Modelitem => item.Rewards.Title)</div>
+            <div class="pledge info">Price: @Html.DisplayFor(Modelitem => item.Price)</div>
+            <div class="pledge info">Rewards Description: @Html.DisplayFor(Modelitem => item.Rewards.Description)</div>
+            <div class="pledge info">Amount: @Html.DisplayFor(Modelitem => item.Rewards.Amount)</div>
+            <div class="pledge info">Delivery date: @Html.DisplayFor(Modelitem => item.Rewards.DeliveryDate)</div>
+            <div class="pledge info">Items Included: @Html.DisplayFor(Modelitem => item.Rewards.ItemsIncluded)</div>
+            <div class="card-block p-3">
+                @*<a href="#" class="btn btn-primary rounded-0 mb-2">Back</a>*@
+                @Html.ActionLink("Back", "Create", "Transactions", new { id = item.ProjectId }, null)
+            </div>
+
+        </li>
         }
     </ul>
 </div>
@@ -151,7 +168,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger">
                 @*@Html.ActionLink("Comment", "Create", "Comments", new { @ID=Model.ProjectId }, null)*@
             </div>
-         
+
             <div class="form-group">
                 <input asp-for="MemberId" type="hidden" class="form-control" />
             </div>
@@ -173,28 +190,41 @@
                 <input type="submit" value="Comment" class="btn btn-default" />
             </div>
         </form>
-            <div>
-                <a asp-action="ProjectsShow">Back to List</a>
-            </div>
+        <div>
+            <a asp-action="ProjectsShow">Back to List</a>
+        </div>
 
 
-            <ul>
-                @foreach (var item in Model)
-                {
-                    <li class="comment List">
-                        @Html.DisplayFor(modelItem => item.Rewards)
-                        @*<div class="pledge info">@Html.DisplayFor(Modelitem => item.Price)</div>
-                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Description)</div>
-                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Amount)</div>
-                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.DeliveryDate)</div>
-                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.ItemsIncluded)</div>
-                        <div class="pledge info">@Html.DisplayFor(Modelitem => item.Rewards.Title)</div>*@
-                    </li>
-                }
-            </ul>
+        <ul>
+            @foreach (var item in Model.CommentMember)
+            {
+                <li class="comment List">
+                    Comment: @Html.DisplayFor(modelItem => item.Comment1)
+                    <div class="pledge info">Date: @Html.DisplayFor(Modelitem => item.Date)</div>
+                    <div class="pledge info">Name:@Html.DisplayFor(Modelitem => item.Member.FirstName)</div>
+                </li>
+            }
+        </ul>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-4">
+        <h1>Backers</h1>
+        <ul>
+            @foreach (var item in Model.ListBackers)
+            {
+                <li class="backers List">
+                    Contribution: @Html.DisplayFor(modelItem => item.Packages.Price)
+                    <div class="pledge info">Date: @Html.DisplayFor(Modelitem => item.Date)</div>
+                    <div class="pledge info">Name:@Html.DisplayFor(Modelitem => item.Member.FirstName)</div>
+                    <div class="pledge info">Surname:@Html.DisplayFor(Modelitem => item.Member.LastName)</div>
+                </li>
+            }
+        </ul>
+
+    </div>
+</div>
 
 
 

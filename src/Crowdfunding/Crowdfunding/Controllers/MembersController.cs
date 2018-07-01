@@ -125,6 +125,12 @@ namespace Crowdfunding.Controllers
                 {
                     returnUrl = TempData["returnUrl"]?.ToString();
                 }
+                // an erxete apo to Comments Creat na pigenei sto project page
+                if (returnUrl== "/Comments/Create")
+                {
+                    return  RedirectToAction("Index", "Projects");
+
+                }
 
                 if (returnUrl != null)
                 {
