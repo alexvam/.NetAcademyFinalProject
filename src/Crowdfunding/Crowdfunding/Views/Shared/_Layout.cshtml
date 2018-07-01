@@ -19,6 +19,7 @@
     </environment>
 </head>
 <body>
+    
     <nav class="navbar navbar-expand-md navbar-dark bg-dark navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -28,9 +29,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Projects" asp-action="Index" class="navbar-brand">Crowdfunding</a>
+                <img id="Logo" src="~/images/logo.png" alt="logo" />
+                <a asp-area="" asp-controller="Projects" asp-action="Index">Crowdfunding</a>
+
+
             </div>
-            <div class="navbar-collapse collapse">
+            <div id="Barala" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
