@@ -1,0 +1,51 @@
+﻿@model IEnumerable<Crowdfunding.Models.Package>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Member Packages</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Title)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Project)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Rewards)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Project.ProjectName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rewards.Title)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.PackagesId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.PackagesId">Details</a> |
+                @*<a asp-action="Delete" asp-route-id="@item.PackagesId">Delete</a>*@
+                <button data-package-id="@item.PackagesId" class="btn-link js-delete">Delete</button>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -55,6 +55,7 @@ namespace Crowdfunding.Controllers
             ViewData["MemberId"] = this.GetMemberId();
             ViewData["ProjectCategoryId"] = new SelectList(_context.ProjectCategory, "CategoryId", "CategoryDescription");
             ViewData["Status"] = new SelectList(_context.ProjectStatus, "StatusId", "StatusCategory");
+            ViewData["StartDate"] = DateTime.Now;
             return View();
         }
 
@@ -69,7 +70,11 @@ namespace Crowdfunding.Controllers
             {
                 _context.Add(project);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return Json(new
+                {
+                    RedirectUrl = Url.Action("create", "rewards", new { id = project.ProjectId})
+                });
             }
             ViewData["ProjectCategoryId"] = new SelectList(_context.ProjectCategory, "CategoryId", "CategoryDescription", project.ProjectCategoryId);
             ViewData["Status"] = new SelectList(_context.ProjectStatus, "StatusId", "StatusCategory", project.Status);
@@ -165,7 +170,7 @@ namespace Crowdfunding.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        public long GetMemberId()
+        private long GetMemberId()
         {
             var memberEmail = User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault();
 

@@ -22,6 +22,7 @@
                         <h4 class="card-title">@Html.DisplayFor(modelItem => item.ProjectName)</h4>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>
                         <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
+                        @Html.ActionLink("Back", "Create", "Transactions", new { id = item.ProjectId }, null)
                     </div>
                 </div>
             </div>

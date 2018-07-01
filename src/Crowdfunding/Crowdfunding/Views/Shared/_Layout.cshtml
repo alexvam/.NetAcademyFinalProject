@@ -28,7 +28,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Crowdfunding</a>
+                <a asp-area="" asp-controller="Projects" asp-action="Index" class="navbar-brand">Crowdfunding</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -38,7 +38,10 @@
                     <li><a asp-area="" asp-controller="Projects" asp-action="Create">Start a Project</a></li>
                     @if (User.Identity.IsAuthenticated)
                     {
-                        <li><a asp-area="">@User.Identity.Name</a></li>
+                        <li><a asp-area="" asp-controller="Members" asp-action="Projects">My Projects</a></li>
+                        <li><a asp-area="" asp-controller="Members" asp-action="Funded">My Funded Projects</a></li>
+                        <li><a asp-area="" asp-controller="Transactions" asp-action="Index">My Transactions</a></li>
+                        <li><a asp-area="" asp-controller="Members" asp-action="Index">@User.Identity.Name</a></li>
                         <li><a asp-area="" asp-controller="Members" asp-action="Logout">Logout</a></li>
                     }
                     else

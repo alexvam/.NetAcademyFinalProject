@@ -9,7 +9,7 @@ namespace Crowdfunding.Models
         {
             Package = new HashSet<Package>();
         }
-
+        
         public long RewardsId { get; set; }
         public long ProjectId { get; set; }
         public string Title { get; set; }
