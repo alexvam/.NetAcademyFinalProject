@@ -28,6 +28,7 @@ $(document).ready(function () {
 });
 
 $('#submit-project').on('click', function (event) {
+    var port = location.port;
     event.preventDefault();
 
     let formData = $('#project-created-form').serialize();
@@ -38,7 +39,7 @@ $('#submit-project').on('click', function (event) {
     $.ajax({
         //url: '@this.Url.Action("Create","Projects")'
         //url: 'https://localhost:44330/Projects/Create',
-        url: 'http://localhost:64710/Projects/Create',
+        url: 'https://localhost:'+port+'/Projects/Create',
         type: 'post',
         data: formData
     }).done(function (data) {
@@ -56,6 +57,7 @@ $('#submit-project').on('click', function (event) {
 });
 
 $('#submit-reward').on('click', function (event) {
+    var port = location.port;
     event.preventDefault();
 
     let formData = $('#reward-created-form').serialize();
@@ -65,7 +67,8 @@ $('#submit-reward').on('click', function (event) {
     //debugger;
     $.ajax({
         //url: '@this.Url.Action("Create","Rewards")',
-        url: 'http://localhost:64710/Rewards/Create',
+        //url: 'https://localhost:44330/Rewards/Create',
+        url: 'https://localhost:'+port+'/Rewards/Create',
         type: 'post',
         data: formData
     }).done(function (data) {

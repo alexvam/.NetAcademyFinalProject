@@ -25,6 +25,21 @@ namespace Crowdfunding.Controllers.Api
             return _context.Project.ToList();
         }
 
+        /*public ActionResult<List<String>> GetTopProjects()
+        {
+
+
+            return (from d in _context.Project
+                              join f in _context.Transaction
+                              on d.ProjectId equals f.ProjectId
+                              join g in _context.Package
+                              on f.PackagesId equals g.PackagesId
+                              
+                              orderby g.Price  select d.ProjectName).Take(5).ToList();
+            //select g.Price).Sum();
+           // return pric;
+        }*/
+
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public IActionResult Delete(long id)

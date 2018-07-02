@@ -36,8 +36,12 @@ namespace Crowdfunding
                 options.CheckConsentNeeded = context => true;
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });*/
+
             //connection string database
             var connection = @"Server=BIM-LPT-AM\C3DSQLSERVER11;Database=Crowdfunding;Trusted_Connection=True;ConnectRetryCount=0";
+
+
+          
 
 
             services.AddDbContext<Crowdfunding4Context>(
