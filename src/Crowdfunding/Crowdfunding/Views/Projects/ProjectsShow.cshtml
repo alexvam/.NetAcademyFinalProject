@@ -3,7 +3,7 @@
     ViewData["Title"] = "ProjectsShow";
 }
 
-<h2>ProjectsShow</h2>
+<h2 class="project-name">@Html.DisplayFor(model => model.ProjectName)</h2>
 
 
 
@@ -12,12 +12,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
-<h2 style="font-size:40px">
-    <center> @Html.DisplayFor(model => model.ProjectName) </center>
-</h2>
-<h3>
-    <center> @Html.DisplayFor(model => model.ProjectDescription) </center>
-</h3>
+
 
 
 <div class="container">
@@ -32,49 +27,42 @@
                 <div class="details col-md-3">
                     <div class="panel panel-default text-center">
                         <div class="rating">
-                            <h3><div class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>  Location</div></h3>
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>  Location</></h3>
                             <hr>
                             <h4 class="project-category">@Html.DisplayFor(model => model.ProjectLocation)</h4>
                         </div>
                     </div>
                 </div>
-
                 <div class="details col-md-3">
                     <div class="panel panel-default text-center">
                         <div class="rating">
-                            <h3><div class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>  Project Creator</div></h3>
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-info-sign"></span>Project Creator</></h3>
                             <hr>
-                            <h4 class="project-category">@Html.DisplayFor(model => model.FirstName)</h4>
-                            <h4 class="project-category">@Html.DisplayFor(model => model.EmailAddress)</h4>
+                            <h4 class="project-category">@Html.DisplayFor(model => model.FirstName)</h4>                            
                         </div>
                     </div>
                 </div>
-
-
                 <div class="details col-md-3">
                     <div class="panel panel-default text-center">
                         <div class="rating">
-                            <h3><div class="panel-title"><span class="glyphicon glyphicon-comment"></span>   Category</div></h3>
+                            <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span>Category</></h3>
                             <hr>
                             <h4 class="project-description">@Html.DisplayFor(model => model.CategoryDescription) </h4>
                         </div>
                     </div>
                 </div>
-
-
                 <div class="details col-md-3">
                     <div class="panel panel-default text-center">
-                        <h3><div class="panel-title"><span class="glyphicon glyphicon-credit-card"></span> Pledged Amount</div></h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-credit-card"></span>Pledged Amount</></h3>
                         <hr>
-                        <h2><font color="purple" class="total money">@Html.DisplayFor(model => model.Price)</h2>   </font>
+                        <h4><font color="purple" class="total money">@Html.DisplayFor(model => model.Price)</font></h4>   
                     </div>
                 </div>
-
                 <div class="details col-md-3">
                     <div class="panel panel-default text-center">
-                        <h3><div class="panel-title"><span class="glyphicon glyphicon-credit-card"></span>  Backers</div></h3>
+                        <h3 class="panel-title"><span class="glyphicon glyphicon-credit-card"></span>Backers</></h3>
                         <hr>
-                        <h2><font color="purple" class="total money">@Html.DisplayFor(model => model.TransactionId)</h2>   </font>
+                        <h4><font color="purple" class="total money">@Html.DisplayFor(model => model.TransactionId)</font></h4>   
                     </div>
                 </div>
             </div>
@@ -87,46 +75,41 @@
     <div class="row" style="margin-top:40px">
         <div class="panel">
             <div class="panel-heading" style="margin-left:500px">
-                <h3 class="panel-title">Project's Progress</h3>
-                <span class="pull-right clickable"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                <h3 class="panel-title">Project's Status</h3>               
             </div>
             <div class="panel-body">
                 <div class="container">
                     <div class="col-sm-3">
                         <strong style="font-size:large">Details</strong>
                         <div class="project-start">
-                            @Html.DisplayFor(model => model.StartDate) <br />
-                            @Html.DisplayFor(model => model.EndDate) <br />
-                            1 Month 15 Days remaining  jscript
+                            Start Date: @Html.DisplayFor(model => model.StartDate) <br />
+                            End Date: @Html.DisplayFor(model => model.EndDate) <br />
+                            @{                                
+                                var remainingDays = Model.EndDate - Model.StartDate;
+                            } Remaining: @remainingDays Day/Hour/Min/Sec
                         </div>
                     </div>
-                    <div class="col-sm-6">
+                    <div class="col-sm-6">                       
+                        @{             
+                            var width = Math.Min(Model.FundedProgress, 100);
+                         }
                         <div class="progress" style="margin-top:35px">
-                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%;">
-                                <span class="sr-only">90% Complete</span>
+                            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="@width;" aria-valuemin="0" aria-valuemax="100" style="width: @width%;">
                             </div>
-                            <span class="progress-completed">90%</span>
+                            <span class="progress-completed">@Model.FundedProgress%</span>
                         </div>
                     </div>
                     <div class="col-sm-2">
                         <div style="margin-left:30px">
-                            Goal
+                            Target
                             <h2 class="project-goal"> @Html.DisplayFor(model => model.Target)</h2>
                         </div>
-                    </div>
-                    @*<div class="col-sm-1">
-                            <div class="pull-right" style="width:20px; height:100px">
-                                <div class="clickable"><i class="glyphicon glyphicon-resize-small glyphicon-padded"></i></div>
-                                <div class="clickable"><i class="glyphicon glyphicon-edit glyphicon-padded"></i></div>
-                                <div class="clickable"><i class="glyphicon glyphicon-signal glyphicon-padded"></i></div>
-                            </div>
-                        </div>*@
+                    </div>   
+                   
                 </div>
-
             </div>
         </div>
     </div>
-
 </div>
 <br>
 <br>
@@ -136,25 +119,22 @@
 <div class="Project_rewrds_List">
 
     <h3>Packages List</h3>
-
     <ul>
         @foreach (var item in Model.PackageRewards)
-        {
-        <li class=" rewards box">
-            @Html.DisplayFor(Modelitem => item.Title)
-            <div class="pledge info">Rewards: Title @Html.DisplayFor(Modelitem => item.Rewards.Title)</div>
-            <div class="pledge info">Price: @Html.DisplayFor(Modelitem => item.Price)</div>
-            <div class="pledge info">Rewards Description: @Html.DisplayFor(Modelitem => item.Rewards.Description)</div>
-            <div class="pledge info">Amount: @Html.DisplayFor(Modelitem => item.Rewards.Amount)</div>
-            <div class="pledge info">Delivery date: @Html.DisplayFor(Modelitem => item.Rewards.DeliveryDate)</div>
-            <div class="pledge info">Items Included: @Html.DisplayFor(Modelitem => item.Rewards.ItemsIncluded)</div>
-            <div class="card-block p-3">
-                @*<a href="#" class="btn btn-primary rounded-0 mb-2">Back</a>*@
-                @Html.ActionLink("Back", "Create", "Transactions", new { id = item.ProjectId }, null)
-            </div>
-
-        </li>
-        }
+         {
+            <li class=" rewards box">
+                @Html.DisplayFor(Modelitem => item.Title)
+                <div class="pledge info">Rewards: Title @Html.DisplayFor(Modelitem => item.Rewards.Title)</div>
+                <div class="pledge info">Price: @Html.DisplayFor(Modelitem => item.Price)</div>
+                <div class="pledge info">Rewards Description: @Html.DisplayFor(Modelitem => item.Rewards.Description)</div>
+                <div class="pledge info">Amount: @Html.DisplayFor(Modelitem => item.Rewards.Amount)</div>
+                <div class="pledge info">Delivery date: @Html.DisplayFor(Modelitem => item.Rewards.DeliveryDate)</div>
+                <div class="pledge info">Items Included: @Html.DisplayFor(Modelitem => item.Rewards.ItemsIncluded)</div>
+                <div class="card-block p-3">                
+                    @Html.ActionLink("Back", "Create", "Transactions", new { id = item.ProjectId }, null)
+                </div>
+            </li>
+         }
     </ul>
 </div>
 
@@ -193,17 +173,15 @@
         <div>
             <a asp-action="ProjectsShow">Back to List</a>
         </div>
-
-
         <ul>
             @foreach (var item in Model.CommentMember)
-            {
+             {
                 <li class="comment List">
                     Comment: @Html.DisplayFor(modelItem => item.Comment1)
                     <div class="pledge info">Date: @Html.DisplayFor(Modelitem => item.Date)</div>
                     <div class="pledge info">Name:@Html.DisplayFor(Modelitem => item.Member.FirstName)</div>
                 </li>
-            }
+             }
         </ul>
     </div>
 </div>
@@ -213,20 +191,17 @@
         <h1>Backers</h1>
         <ul>
             @foreach (var item in Model.ListBackers)
-            {
+             {
                 <li class="backers List">
                     Contribution: @Html.DisplayFor(modelItem => item.Packages.Price)
                     <div class="pledge info">Date: @Html.DisplayFor(Modelitem => item.Date)</div>
                     <div class="pledge info">Name:@Html.DisplayFor(Modelitem => item.Member.FirstName)</div>
                     <div class="pledge info">Surname:@Html.DisplayFor(Modelitem => item.Member.LastName)</div>
                 </li>
-            }
+             }
         </ul>
-
     </div>
 </div>
-
-
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

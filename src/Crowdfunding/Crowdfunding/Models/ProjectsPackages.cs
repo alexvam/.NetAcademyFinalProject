@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Crowdfunding.Models
 {
@@ -38,6 +36,7 @@ namespace Crowdfunding.Models
         public string FirstName { get; set; }
         public IEnumerable<Comment> CommentMember { get; set; }
         public string EmailAddress { get; set; }
+        public decimal FundedProgress { get; set; }
 
 
 

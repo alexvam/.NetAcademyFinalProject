@@ -234,6 +234,8 @@ namespace Crowdfunding.Controllers
                               where d.ProjectId == ID
                               select g.Price).Sum();
 
+            projects.FundedProgress = (projects.Price / projects.Target) * 100;
+
 
             //projects.ListPackages = await GetItemsAsyncPackages(ID);
             //projects.ListRewards= await GetItemsAsyncReward(ID);

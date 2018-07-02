@@ -13,7 +13,7 @@
         <form asp-action="Create" id="project-created-form">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ProjectName" class="control-label"></label>
+                <label asp-for="ProjectName" class="control-label">Title</label>
                 <input asp-for="ProjectName" class="form-control" />
                 <span asp-validation-for="ProjectName" class="text-danger"></span>
             </div>
@@ -26,12 +26,12 @@
                 <input asp-for="MemberId" type="hidden" class="form-control" value="@ViewData["MemberId"]" />
             </div>
             <div class="form-group">
-                <label asp-for="ProjectDescription" class="control-label"></label>
+                <label asp-for="ProjectDescription" class="control-label">Description</label>
                 <input asp-for="ProjectDescription" class="form-control" />
                 <span asp-validation-for="ProjectDescription" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectCategoryId" class="control-label"></label>
+                <label asp-for="ProjectCategoryId" class="control-label">Category</label>
                 <select asp-for="ProjectCategoryId" class="form-control" asp-items="ViewBag.ProjectCategoryId"></select>
             </div>
             <div class="form-group">
@@ -41,12 +41,12 @@
                 <input asp-for="StartDate" type="hidden" class="form-control" value="@ViewData["StartDate"]" />
             </div>
             <div class="form-group">
-                <label asp-for="EndDate" class="control-label"></label>
+                <label asp-for="EndDate" class="control-label">End Date</label>
                 <input asp-for="EndDate" class="form-control" />
                 <span asp-validation-for="EndDate" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ProjectLocation" class="control-label"></label>
+                <label asp-for="ProjectLocation" class="control-label">Location</label>
                 <input asp-for="ProjectLocation" class="form-control" />
                 <span asp-validation-for="ProjectLocation" class="text-danger"></span>
             </div>
