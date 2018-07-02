@@ -30,6 +30,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Projects Created
+        [Authorize]
         public async Task<ActionResult> Projects()
         {
             var memberId = this.GetMemberId();
@@ -41,6 +42,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Projects Created
+        [Authorize]
         public async Task<ActionResult> Funded([Bind("MemberId")] Member member)
         {
             var memberId = this.GetMemberId();
@@ -61,6 +63,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Members/Details/5
+        [Authorize]
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null)
@@ -154,6 +157,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Members/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -172,6 +176,7 @@ namespace Crowdfunding.Controllers
         // POST: Members/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("MemberId,PhoneNumber,Address,Country,City,PostCode,FirstName,LastName,EmailAddress,Password,ConfirmPassword,Birthday")] Member member)
@@ -205,6 +210,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Members/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -223,6 +229,7 @@ namespace Crowdfunding.Controllers
         }
 
         // POST: Members/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)

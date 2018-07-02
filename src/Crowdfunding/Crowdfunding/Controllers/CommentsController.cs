@@ -53,7 +53,7 @@ namespace Crowdfunding.Controllers
         [Authorize]
         public  IActionResult Create()
         {
-
+            ViewData["Date"] = DateTime.Now;
             return View();
 
  
@@ -69,7 +69,7 @@ namespace Crowdfunding.Controllers
         {
 
             // na kanei valisation kai text kai imerominies. den bgazei omos minimata se periptosi lathous
-
+            ViewData["Date"] = DateTime.Now;
             comment.MemberId = GetMemberId();
             DateTime highdate = new DateTime(9999, 12, 31);
             DateTime lowDate = new DateTime(1753, 01, 01);

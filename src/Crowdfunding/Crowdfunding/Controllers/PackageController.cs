@@ -82,7 +82,8 @@ namespace Crowdfunding.Controllers
             {
                 _context.Add(package);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                //return RedirectToAction(nameof(Index));
+                return RedirectToAction("Projects", "Members");
             }
             ViewData["ProjectId"] = new SelectList(_context.Project, "ProjectId", "ProjectName", package.ProjectId);
             ViewData["RewardsId"] = new SelectList(_context.Reward, "RewardsId", "RewardsId", package.RewardsId);

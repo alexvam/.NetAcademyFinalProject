@@ -23,7 +23,8 @@
                         <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>
                         <p class="card-text">@Html.ActionLink("Create Reward", "Create", "Rewards", new { id = item.ProjectId }, null)</p>
                         <p class="card-text">@Html.ActionLink("Create Package", "Create", "Package", new { id = item.ProjectId }, null)</p>
-                        <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
+                        @*<a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>*@
+                        @Html.ActionLink("Read More", "ProjectsShow", "Projects", new { id = item.ProjectId }, new { @class = "btn btn-primary rounded-0 mb-2" })
                     </div>
                 </div>
             </div>
