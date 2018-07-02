@@ -8,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Crowdfunding.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-
+using System.Net.Mail;
+using Microsoft.IdentityModel.Protocols;
+using System.Net;
 
 namespace Crowdfunding.Controllers
 {
@@ -235,6 +237,11 @@ namespace Crowdfunding.Controllers
                               select g.Price).Sum();
 
 
+            projects.FundedProgress = (projects.Price / projects.Target)*100;
+            var today = DateTime.Today;
+            projects.DaysLeft = (projects.EndDate - today);
+
+
             //projects.ListPackages = await GetItemsAsyncPackages(ID);
             //projects.ListRewards= await GetItemsAsyncReward(ID);
             // projects.ListComments = await GetItemsAsyncComment(ID);
@@ -245,6 +252,16 @@ namespace Crowdfunding.Controllers
             //projects.ProjectId = await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().ProjectId;
 
 
+            if (projects.FundedProgress >= 100)
+            {
+                var user = new Transaction();
+                List<Transaction> users = projects.ListBackers.ToList();
+                foreach (var item in users)
+                {
+                    users.Count();
+                    user.MailUser(item);
+                }
+            }
 
             return View(projects);
         }
@@ -285,10 +302,6 @@ namespace Crowdfunding.Controllers
         {
             return await await_context.Transaction.Include(x => x.Member).Include(x=>x.Packages).Where(x => x.ProjectId == ID).ToListAsync();
         }
-
-        //private long UserId() =>
-        //    long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
 
 
         public ActionResult ActiveProjectsShow()
