@@ -22,7 +22,7 @@
                     <div class="card-block p-3">
                         <h4 class="card-title">@Html.DisplayFor(modelItem => item.ProjectName)</h4>
                         <p class="card-text">@Html.DisplayFor(modelItem => item.ProjectDescription)</p>
-                        <a href="#" class="btn btn-primary rounded-0 mb-2">Read More</a>
+                        @Html.ActionLink("Read More", "ProjectsShow", "Projects", new { id = item.ProjectId }, new { @class = "btn btn-primary rounded-0 mb-2" })
                     </div>
                 </div>
             </div>

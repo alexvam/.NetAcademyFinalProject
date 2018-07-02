@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace Crowdfunding.Models
 {
@@ -37,7 +41,9 @@ namespace Crowdfunding.Models
         public IEnumerable<Comment> CommentMember { get; set; }
         public string EmailAddress { get; set; }
         public decimal FundedProgress { get; set; }
+        public TimeSpan DaysLeft { get; set; }
 
+       
 
 
         public Project Project { get; set; }
@@ -48,9 +54,13 @@ namespace Crowdfunding.Models
         public ICollection<Comment> Comment { get; set; }
         public virtual ICollection<Member> Members { get; set; }
 
-  
 
-    
-
+       
     }
+
 }
+
+
+
+
+  

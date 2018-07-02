@@ -8,7 +8,9 @@ using Microsoft.EntityFrameworkCore;
 using Crowdfunding.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
-
+using System.Net.Mail;
+using Microsoft.IdentityModel.Protocols;
+using System.Net;
 
 namespace Crowdfunding.Controllers
 {
@@ -83,6 +85,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(long? id)
         {
             if (id == null)
@@ -104,6 +107,7 @@ namespace Crowdfunding.Controllers
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id, [Bind("ProjectId,ProjectName,Target,MemberId,ProjectDescription,ProjectCategoryId,StartDate,EndDate,ProjectLocation,Status")] Project project)
@@ -140,6 +144,7 @@ namespace Crowdfunding.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(long? id)
         {
             if (id == null)
@@ -161,6 +166,7 @@ namespace Crowdfunding.Controllers
         }
 
         // POST: Projects/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
@@ -237,6 +243,11 @@ namespace Crowdfunding.Controllers
             projects.FundedProgress = (projects.Price / projects.Target) * 100;
 
 
+            projects.FundedProgress = (projects.Price / projects.Target)*100;
+            var today = DateTime.Today;
+            projects.DaysLeft = (projects.EndDate - today);
+
+
             //projects.ListPackages = await GetItemsAsyncPackages(ID);
             //projects.ListRewards= await GetItemsAsyncReward(ID);
             // projects.ListComments = await GetItemsAsyncComment(ID);
@@ -247,6 +258,16 @@ namespace Crowdfunding.Controllers
             //projects.ProjectId = await_context.Project.FromSql("SELECT * from dbo.Project").Where(p => p.ProjectId == ID).FirstOrDefault().ProjectId;
 
 
+            if (projects.FundedProgress >= 100)
+            {
+                var user = new Transaction();
+                List<Transaction> users = projects.ListBackers.ToList();
+                foreach (var item in users)
+                {
+                    users.Count();
+                    user.MailUser(item);
+                }
+            }
 
             return View(projects);
         }
@@ -287,10 +308,6 @@ namespace Crowdfunding.Controllers
         {
             return await await_context.Transaction.Include(x => x.Member).Include(x=>x.Packages).Where(x => x.ProjectId == ID).ToListAsync();
         }
-
-        //private long UserId() =>
-        //    long.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-
 
 
         public ActionResult ActiveProjectsShow()
