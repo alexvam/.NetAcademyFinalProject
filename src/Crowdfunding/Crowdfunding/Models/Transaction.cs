@@ -25,7 +25,7 @@ namespace Crowdfunding.Models
             var message = new MailMessage
             {
                 Body = "The project you have supported has been funded successfully",
-                From = new MailAddress("amzantlmsr@gmail.com", "Crowfunding"),
+                From = new MailAddress("sendermail", "Crowfunding"),
                 Subject = item.Project.ProjectName,
             };
 
@@ -34,7 +34,7 @@ namespace Crowdfunding.Models
 
             SmtpClient client = new SmtpClient("smtp.gmail.com");
             client.Port = 587;
-            client.Credentials = new NetworkCredential("amzantlmsr", "paok1926");
+            client.Credentials = new NetworkCredential("email", "password");
             client.EnableSsl = true;
             client.SendAsync(message, item.Member.EmailAddress);
         }        

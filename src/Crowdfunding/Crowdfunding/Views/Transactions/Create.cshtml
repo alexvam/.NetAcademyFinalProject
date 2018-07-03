@@ -19,9 +19,10 @@
                 <input asp-for="ProjectId" type="hidden" class="form-control" value="@ViewData["ProjectId"]" />
             </div>
             <div class="form-group">
-                <label asp-for="Contribution" class="control-label"></label>
+                @*<label asp-for="Contribution" class="control-label"></label>
                 <input asp-for="Contribution" class="form-control" />
-                <span asp-validation-for="Contribution" class="text-danger"></span>
+                <span asp-validation-for="Contribution" class="text-danger"></span>*@
+                <input asp-for="Contribution" type="hidden" class="form-control" value="@ViewData["Contribution"]" />
             </div>
             <div class="form-group">
                 @*<label asp-for="Date" class="control-label"></label>

@@ -38,10 +38,10 @@ namespace Crowdfunding
             });*/
 
             //connection string database
-            var connection = @"Server=BIM-LPT-AM\C3DSQLSERVER11;Database=Crowdfunding;Trusted_Connection=True;ConnectRetryCount=0";
+            var connection = @"Server=DESKTOP-9T1C7LJ\SQLEXPRESS;Database=Crowdfunding6;Trusted_Connection=True;ConnectRetryCount=0";
 
 
-          
+
 
 
             services.AddDbContext<Crowdfunding4Context>(

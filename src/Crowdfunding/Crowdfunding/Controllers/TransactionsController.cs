@@ -60,6 +60,8 @@ namespace Crowdfunding.Controllers
             ViewData["PackagesId"] = new SelectList(package, "PackagesId", "Title");
             ViewData["ProjectId"] = id;
             ViewData["Date"] = DateTime.Now;
+            ViewData["Contribution"] = 1;
+
             return View();
         }
 

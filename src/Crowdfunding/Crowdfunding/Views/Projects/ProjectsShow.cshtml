@@ -98,7 +98,7 @@
                         <div class="project-start">
                             @Html.DisplayFor(model => model.StartDate) <br />
                             @Html.DisplayFor(model => model.EndDate) <br />
-                           Days to go @Html.DisplayFor(model => model.DaysLeft) <br />
+                            Days to go @Html.DisplayFor(model => model.DaysLeft) <br />
                         </div>
                     </div>
                     <div class="col-sm-6">
@@ -109,7 +109,7 @@
                             <span class="progress-completed">%@Html.DisplayFor(model => model.FundedProgress)</span>
                         </div>
                     </div>
-                 
+
                     <div class="col-sm-2">
                         <div style="margin-left:30px">
                             Goal
@@ -117,12 +117,12 @@
                         </div>
                     </div>
                     @*<div class="col-sm-1">
-            <div class="pull-right" style="width:20px; height:100px">
-                <div class="clickable"><i class="glyphicon glyphicon-resize-small glyphicon-padded"></i></div>
-                <div class="clickable"><i class="glyphicon glyphicon-edit glyphicon-padded"></i></div>
-                <div class="clickable"><i class="glyphicon glyphicon-signal glyphicon-padded"></i></div>
-            </div>
-        </div>*@
+                            <div class="pull-right" style="width:20px; height:100px">
+                                <div class="clickable"><i class="glyphicon glyphicon-resize-small glyphicon-padded"></i></div>
+                                <div class="clickable"><i class="glyphicon glyphicon-edit glyphicon-padded"></i></div>
+                                <div class="clickable"><i class="glyphicon glyphicon-signal glyphicon-padded"></i></div>
+                            </div>
+                        </div>*@
                 </div>
 
             </div>
@@ -142,20 +142,34 @@
     <ul>
         @foreach (var item in Model.PackageRewards)
         {
-        <li class=" rewards box">
-            @Html.DisplayFor(Modelitem => item.Title)
-            <div class="pledge info">Rewards: Title @Html.DisplayFor(Modelitem => item.Rewards.Title)</div>
-            <div class="pledge info">Price: @Html.DisplayFor(Modelitem => item.Price)</div>
-            <div class="pledge info">Rewards Description: @Html.DisplayFor(Modelitem => item.Rewards.Description)</div>
-            <div class="pledge info">Amount: @Html.DisplayFor(Modelitem => item.Rewards.Amount)</div>
-            <div class="pledge info">Delivery date: @Html.DisplayFor(Modelitem => item.Rewards.DeliveryDate)</div>
-            <div class="pledge info">Items Included: @Html.DisplayFor(Modelitem => item.Rewards.ItemsIncluded)</div>
-            <div class="card-block p-3">
-                @*<a href="#" class="btn btn-primary rounded-0 mb-2">Back</a>*@
-                @Html.ActionLink("Back", "Create", "Transactions", new { id = item.ProjectId }, null)
-            </div>
+            <li class=" rewards box">
+                @Html.DisplayFor(Modelitem => item.Title)
+                <div class="pledge info">Rewards: Title @Html.DisplayFor(Modelitem => item.Rewards.Title)</div>
+                <div class="pledge info">Price: @Html.DisplayFor(Modelitem => item.Price)</div>
+                <div class="pledge info">Rewards Description: @Html.DisplayFor(Modelitem => item.Rewards.Description)</div>
+                <div class="pledge info">Amount: @Html.DisplayFor(Modelitem => item.Rewards.Amount)</div>
+                <div class="pledge info">Delivery date: @Html.DisplayFor(Modelitem => item.Rewards.DeliveryDate)</div>
+                <div class="pledge info">Items Included: @Html.DisplayFor(Modelitem => item.Rewards.ItemsIncluded)</div>
+                <div class="card-block p-3">
+                    @*<a href="#" class="btn btn-primary rounded-0 mb-2">Back</a>*@
+                    @Html.ActionLink("Fund", "Create", "Transactions", new { id = item.ProjectId }, null)
+                    @*<input type="button" id="submit" value="Submit" onclick="VivaPayments.cards.requestToken();" />
+                    <body>
+                        <form id="myform" action="/checkout" method="post">
+                            <button type="button"
+                                    data-vp-publickey="LZmm8E8FLUJmRMPQFAssIV3mkzsrgQ3wbDIp7XcsZno="
+                                    data-vp-baseurl="https://demo.vivapayments.com"
+                                    data-vp-lang="en"
+                                    data-vp-amount="1000"
+                                    data-vp-description="My product"></button>
+                        </form>
 
-        </li>
+                        <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+                        <script src="https://demo.vivapayments.com/web/checkout/js"></script>
+                    </body>*@
+                </div>
+
+            </li>
         }
     </ul>
 </div>
@@ -229,6 +243,18 @@
     </div>
 </div>
 
+<div id="fb-root"></div>
+<script>
+    (function (d, s, id) {
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) return;
+        js = d.createElement(s); js.id = id;
+        js.src = 'https://connect.facebook.net/el_GR/sdk.js#xfbml=1&version=v3.0';
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));</script>
+<div class="fb-share-button" data-href="https://github.com/" data-layout="button" data-size="small" data-mobile-iframe="false">
+    <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://github.com/" class="fb-xfbml-parse-ignore">Share</a>
+</div>
 
 
 @section Scripts {
