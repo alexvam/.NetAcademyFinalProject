@@ -240,6 +240,8 @@ namespace Crowdfunding.Controllers
                               where d.ProjectId == ID
                               select g.Price).Sum();
 
+            projects.FundedProgress = (projects.Price / projects.Target) * 100;
+
 
             projects.FundedProgress = (projects.Price / projects.Target)*100;
             var today = DateTime.Today;
